@@ -135,7 +135,25 @@ h1{font-size:72px}
     <input placeholder="Nome completo" required>
     <input placeholder="WhatsApp" required>
     <input placeholder="E-mail">
-    <select><option>Cliente</option><option>Profissional</option><option>Empresa</option></select>
+   <select id="tipoUsuario" onchange="mostrarOcupacao()">
+  <option>Cliente</option>
+  <option>Profissional</option>
+  <option>Empresa</option>
+</select>
+
+<select id="ocupacao" style="display:none">
+  <option value="">Qual sua ocupação?</option>
+  <option>Eletricista</option>
+  <option>Encanador</option>
+  <option>Diarista</option>
+  <option>Montador de móveis</option>
+  <option>Fretes e mudanças</option>
+  <option>Entregas</option>
+  <option>Pintor</option>
+  <option>Ar-condicionado</option>
+  <option>Beleza</option>
+  <option>Outros</option>
+</select>
     <button class="btn" type="submit">Quero entrar para a lista</button>
   </form>
 </section>
@@ -150,4 +168,18 @@ h1{font-size:72px}
   <p>@prontoaioficial</p>
 </footer>
 </body>
-</html>
+</html><script>
+function mostrarOcupacao() {
+  const tipo = document.getElementById("tipoUsuario").value;
+  const ocupacao = document.getElementById("ocupacao");
+
+  if (tipo === "Profissional") {
+    ocupacao.style.display = "block";
+    ocupacao.required = true;
+  } else {
+    ocupacao.style.display = "none";
+    ocupacao.required = false;
+    ocupacao.value = "";
+  }
+}
+</script>
