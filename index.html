@@ -23,16 +23,24 @@ body{
 }
 
 header{
-  position:sticky;
-  top:0;
-  background:#fff;
-  padding:14px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:14px;
-  border-bottom:1px solid #eee;
-  z-index:999999;
+    position:sticky;
+    top:0;
+    background:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center; /* centraliza o conteúdo */
+
+    gap:24px;
+
+    padding:18px 20px;
+
+    border-bottom:1px solid #eee;
+
+    z-index:999999;
+
+    max-width:900px;     /* limita largura no PC */
+    margin:auto;         /* centraliza */
 }
 
 .logo{
@@ -49,7 +57,7 @@ header{
   display:block;
 }
 
-.btn{
+  .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
