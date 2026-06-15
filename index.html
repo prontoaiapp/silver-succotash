@@ -12,12 +12,12 @@ header{
   position:sticky;
   top:0;
   background:#fff;
-  padding:18px 22px;
+  padding:16px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   border-bottom:1px solid #eee;
-  z-index:99999;
+  z-index:999999;
 }
 .logo{
   display:flex;
@@ -27,8 +27,8 @@ header{
   font-weight:900;
 }
 .logo img{
-  width:86px;
-  height:86px;
+  width:78px;
+  height:78px;
   object-fit:contain;
 }
 .logo span{color:#55c96b}
@@ -50,8 +50,9 @@ header{
   pointer-events:auto;
 }
 .header-btn{
-  font-size:18px;
+  font-size:15px;
   white-space:nowrap;
+  padding:13px 16px;
 }
 .hero{
   position:relative;
@@ -62,13 +63,13 @@ header{
 .hero::after{
   content:"";
   position:absolute;
-  width:300px;
-  height:300px;
+  width:320px;
+  height:320px;
   background:url("IMG_1132.png") no-repeat center;
   background-size:contain;
   opacity:.05;
-  right:-80px;
-  top:150px;
+  right:-90px;
+  top:160px;
   pointer-events:none;
 }
 .badge{
@@ -77,7 +78,7 @@ header{
   padding:12px 18px;
   border-radius:40px;
   margin-bottom:25px;
-  font-weight:700;
+  font-weight:800;
 }
 h1{
   font-size:42px;
@@ -99,8 +100,34 @@ p{font-size:20px;line-height:1.5;color:#5f6878}
 }
 .proof{
   margin-top:20px;
+  padding:18px;
+  background:#fff;
+  border:1px solid #dce6f2;
+  border-radius:24px;
   font-weight:800;
   color:#071225;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+.stats{
+  display:grid;
+  gap:14px;
+  margin-top:28px;
+}
+.stat{
+  background:#fff;
+  border:1px solid #dce6f2;
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+.stat strong{
+  display:block;
+  font-size:30px;
+  color:#071225;
+}
+.stat span{
+  color:#5f6878;
+  font-weight:700;
 }
 .section{padding:65px 24px}
 .gray{background:#f6faff}
@@ -155,6 +182,22 @@ h2{
   padding:14px 20px;
   font-weight:800;
 }
+.testimonials{
+  display:grid;
+  gap:18px;
+}
+.testimonial{
+  background:#fff;
+  border:1px solid #dce6f2;
+  border-radius:28px;
+  padding:24px;
+  box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+.testimonial strong{
+  display:block;
+  margin-top:12px;
+  color:#071225;
+}
 form{
   max-width:620px;
   margin:auto;
@@ -173,14 +216,30 @@ footer{
   padding:40px 20px;
   border-top:1px solid #eee;
 }
+.social-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+  margin-top:20px;
+}
+.social-links a{
+  padding:12px 18px;
+  border-radius:30px;
+  background:#f6faff;
+  color:#071225;
+  text-decoration:none;
+  font-weight:800;
+  border:1px solid #dce6f2;
+}
 @media(max-width:480px){
   header{padding:14px 16px}
   .logo{font-size:28px;gap:8px}
   .logo img{width:62px;height:62px}
-  .header-btn{font-size:16px;padding:14px 18px}
+  .header-btn{font-size:14px;padding:12px 14px}
 }
 @media(min-width:800px){
-  .grid{grid-template-columns:repeat(3,1fr)}
+  .grid,.stats,.testimonials{grid-template-columns:repeat(3,1fr)}
   .actions{display:flex}
   .hero{padding:90px 8vw}
   .section{padding:80px 8vw}
@@ -195,7 +254,7 @@ footer{
     Pronto<span>Aí</span>
   </div>
 
-Lista VIP
+Acesso antecipado
 
 </header>
 <section class="hero">
@@ -210,9 +269,16 @@ Lista VIP
     fretes, entregas e mais de 250 categorias de serviços. Profissionais
     verificados perto de você em tempo real.
   </p>
-  <p class="proof">🔥 Mais de 300 profissionais já estão pré-cadastrados. Agora faltam os primeiros clientes da região.</p>
+  <p class="proof">
+    🔥 Mais de 300 profissionais já estão pré-cadastrados. Agora estamos formando a Lista VIP dos primeiros clientes da região.
+  </p>
+  <div class="stats">
+    <div class="stat"><strong>300+</strong><span>Profissionais pré-cadastrados</span></div>
+    <div class="stat"><strong>250+</strong><span>Categorias de serviços</span></div>
+    <div class="stat"><strong>7</strong><span>Cidades no lançamento</span></div>
+  </div>
   <div class="actions">
-    <a href="#cadastro" class="btn">Quero fazer parte da Lista VIP</a>
+    <a href="#cadastro" class="btn">🚀 Quero acesso antecipado</a>
     <a href="#profissionais" class="btn outline">Sou profissional e quero clientes</a>
   </div>
 </section>
@@ -263,8 +329,17 @@ Lista VIP
   </div>
 </section>
 <section class="section">
+  <h2>O que as pessoas querem resolver?</h2>
+  <p class="center">O ProntoAí nasce para resolver problemas reais do dia a dia.</p>
+  <div class="testimonials">
+    <div class="testimonial">⭐⭐⭐⭐⭐<p>Finalmente um app para achar profissionais confiáveis perto de casa.</p><strong>Maria, Santos</strong></div>
+    <div class="testimonial">⭐⭐⭐⭐⭐<p>Quero receber orçamento rápido sem ficar procurando em vários lugares.</p><strong>Rafael, Praia Grande</strong></div>
+    <div class="testimonial">⭐⭐⭐⭐⭐<p>Como profissional, quero aparecer para mais clientes da minha região.</p><strong>Carlos, São Vicente</strong></div>
+  </div>
+</section>
+<section class="section gray">
   <h2>Começamos na Baixada Santista</h2>
-  <p class="center">As primeiras cidades a contar com a ProntoAí.</p>
+  <p class="center">As primeiras cidades a contar com o ProntoAí.</p>
   <div class="cities">
     <span>Santos</span>
     <span>São Vicente</span>
@@ -276,7 +351,7 @@ Lista VIP
   </div>
   <p class="center" style="margin-top:30px"><b>🌎 Em breve em todo o Brasil</b></p>
 </section>
-<section id="cadastro" class="section gray">
+<section id="cadastro" class="section">
   <h2>🚀 Quer fazer parte da Lista VIP dos primeiros clientes da sua região?</h2>
   <p class="center">
     Receba acesso antecipado ao ProntoAí, benefícios exclusivos e seja um dos primeiros a contratar profissionais verificados perto de você.
@@ -314,18 +389,23 @@ Lista VIP
   <option>Beleza</option>
   <option>Outros</option>
 </select>
-<button class="btn" type="submit">Quero fazer parte da Lista VIP</button>
+<button class="btn" type="submit">🚀 Quero fazer parte da Lista VIP</button>
   </form>
 </section>
 <section class="section pro">
   <h2>O futuro da contratação de serviços começa agora.</h2>
   <p class="center">Clientes encontram profissionais. Profissionais encontram oportunidades. Tudo em um único aplicativo.</p>
-  <p class="center"><a href="#cadastro" class="btn outline">Entrar para a Lista VIP</a></p>
+  <p class="center"><a href="#cadastro" class="btn outline">Quero acesso antecipado</a></p>
 </section>
 <footer>
   <h3>ProntoAí</h3>
   <p>Conexão que resolve.</p>
-  <p>@prontoaioficial</p>
+  <div class="social-links">
+    <a href="https://www.instagram.com/prontoaioficial" target="_blank">Instagram</a>
+    <a href="https://www.youtube.com/@prontoaíapp" target="_blank">YouTube</a>
+    <a href="https://www.tiktok.com/@prontoai.app" target="_blank">TikTok</a>
+    <a href="https://www.facebook.com/prontoaioficial" target="_blank">Facebook</a>
+  </div>
 </footer>
 <script>
 function mostrarOcupacao() {
