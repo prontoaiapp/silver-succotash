@@ -7,12 +7,7 @@
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  color:#071225;
-  background:#fff;
-}
+body{margin:0;font-family:Arial,sans-serif;color:#071225;background:#fff}
 header{
   position:sticky;
   top:0;
@@ -22,26 +17,21 @@ header{
   justify-content:space-between;
   align-items:center;
   border-bottom:1px solid #eee;
-
   z-index:9999;
-  isolation:isolate;
-}
 }
 .logo{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:14px;
   font-size:32px;
   font-weight:900;
 }
 .logo img{
-  width:54px;
-  height:54px;
+  width:76px;
+  height:76px;
   object-fit:contain;
 }
-.logo span{
-  color:#55c96b;
-}
+.logo span{color:#55c96b}
 .btn{
   display:inline-block;
   padding:16px 24px;
@@ -50,19 +40,11 @@ header{
   color:#fff;
   text-decoration:none;
   font-weight:800;
-
-  position:relative;
-  z-index:10000;
-  cursor:pointer;
-}
   border:none;
   text-align:center;
+  cursor:pointer;
 }
 .hero{
-  .hero{
-  position:relative;
-  z-index:1;
-}
   position:relative;
   overflow:hidden;
   padding:70px 24px;
@@ -71,13 +53,13 @@ header{
 .hero::after{
   content:"";
   position:absolute;
-  width:260px;
-  height:260px;
+  width:300px;
+  height:300px;
   background:url("IMG_1132.png") no-repeat center;
   background-size:contain;
   opacity:.05;
-  right:-70px;
-  top:120px;
+  right:-80px;
+  top:150px;
   pointer-events:none;
 }
 .badge{
@@ -93,50 +75,29 @@ h1{
   line-height:1;
   letter-spacing:-2px;
   margin:0 0 25px;
-  position:relative;
-  z-index:1;
 }
 .grad{
   background:linear-gradient(90deg,#1f6fff,#55c96b,#ffd633);
   -webkit-background-clip:text;
   color:transparent;
 }
-p{
-  font-size:20px;
-  line-height:1.5;
-  color:#5f6878;
-}
-.actions{
-  display:grid;
-  gap:14px;
-  margin-top:28px;
-}
+p{font-size:20px;line-height:1.5;color:#5f6878}
+.actions{display:grid;gap:14px;margin-top:28px}
 .outline{
   background:#fff;
   color:#55c96b;
   border:3px solid #55c96b;
 }
-.section{
-  padding:65px 24px;
-}
-.gray{
-  background:#f6faff;
-}
+.section{padding:65px 24px}
+.gray{background:#f6faff}
 h2{
   font-size:40px;
   line-height:1.05;
   text-align:center;
   margin:0 0 18px;
 }
-.center{
-  text-align:center;
-  max-width:760px;
-  margin:0 auto 35px;
-}
-.grid{
-  display:grid;
-  gap:18px;
-}
+.center{text-align:center;max-width:760px;margin:0 auto 35px}
+.grid{display:grid;gap:18px}
 .card{
   background:#fff;
   border:1px solid #dce6f2;
@@ -144,14 +105,8 @@ h2{
   padding:26px;
   box-shadow:0 10px 25px rgba(0,0,0,.06);
 }
-.icon{
-  font-size:52px;
-  margin-bottom:18px;
-}
-.card h3{
-  font-size:26px;
-  margin:0 0 8px;
-}
+.icon{font-size:52px;margin-bottom:18px}
+.card h3{font-size:26px;margin:0 0 8px}
 .steps .card strong{
   display:inline-grid;
   place-items:center;
@@ -167,10 +122,7 @@ h2{
   background:linear-gradient(135deg,#1f6fff,#55c96b);
   color:#fff;
 }
-.pro p,
-.pro h2{
-  color:#fff;
-}
+.pro p,.pro h2{color:#fff}
 .pro .card{
   background:rgba(255,255,255,.15);
   color:#fff;
@@ -195,8 +147,7 @@ form{
   display:grid;
   gap:14px;
 }
-input,
-select{
+input,select{
   padding:18px;
   border:1px solid #dce6f2;
   border-radius:18px;
@@ -228,7 +179,7 @@ Entrar na lista
 
 </header>
 <section class="hero">
-  <div class="badge">🚀 Lançamento confirmado no litoral sul de SP e lógo estará em todo o Brasil</div>
+  <div class="badge">🚀 Lançamento confirmado no litoral sul de SP e logo estará em todo o Brasil</div>
   <h1>
     O jeito mais rápido e seguro de
     <span class="grad">contratar serviços</span>
@@ -236,8 +187,8 @@ Entrar na lista
   </h1>
   <p>
     Eletricistas, encanadores, diaristas, montadores, profissionais de beleza,
-    fretes, entregas e mais de 299 categorias de serviços. Profissionais
-    verificados perto de você em tempo real. Mais 360 Profissionais ja pré Cadastrados.
+    fretes, entregas e mais de 250 categorias de Serviços. Profissionais
+    verificados perto de você em tempo real. Mais de 300 Profissionais já pré-cadastrados.
   </p>
   <div class="actions">
     <a href="#cadastro" class="btn">Entrar na lista de espera</a>
@@ -311,7 +262,18 @@ Entrar na lista
     <input placeholder="Nome completo" required>
     <input placeholder="WhatsApp" required>
     <input placeholder="E-mail">
-<select id="tipoUsuario" onchange="mostrarOcupacao()">
+<select id="cidade" required>
+  <option value="">Selecione sua cidade</option>
+  <option>Santos</option>
+  <option>São Vicente</option>
+  <option>Praia Grande</option>
+  <option>Cubatão</option>
+  <option>Peruíbe</option>
+  <option>Itanhaém</option>
+  <option>Mongaguá</option>
+  <option>Outra cidade</option>
+</select>
+<select id="tipoUsuario" onchange="mostrarOcupacao()" required>
   <option>Cliente</option>
   <option>Profissional</option>
   <option>Empresa</option>
