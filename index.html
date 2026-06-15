@@ -728,7 +728,7 @@ footer h3{
     Receba acesso antecipado ao ProntoAí, descontos exclusivos e seja um dos primeiros a contratar profissionais verificados perto de você.
   </p>
 
-  <form onsubmit="event.preventDefault();alert('Cadastro recebido!')">
+  <form id="leadform">
     <input placeholder="Nome completo" required>
     <input placeholder="WhatsApp" required>
     <input placeholder="E-mail">
@@ -791,6 +791,8 @@ footer h3{
 </footer>
 
 <script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQWzQiZ5GDBq3LMEIeZUsuV_FqSlkNYRPAKGI02wbaEoYwEchatZKqKVm3ySgJIrLm/exec";
+
 function mostrarOcupacao() {
   const tipo = document.getElementById("tipoUsuario").value;
   const ocupacao = document.getElementById("ocupacao");
@@ -804,6 +806,46 @@ function mostrarOcupacao() {
     ocupacao.value = "";
   }
 }
+
+document.getElementById("leadForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const botao = form.querySelector("button");
+
+  botao.disabled = true;
+  botao.innerText = "Enviando...";
+
+  const dados = {
+    nome: form.querySelector('input[placeholder="Nome completo"]').value,
+    whatsapp: form.querySelector('input[placeholder="WhatsApp"]').value,
+    email: form.querySelector('input[placeholder="E-mail"]').value,
+    cidade: document.getElementById("cidade").value,
+    tipo: document.getElementById("tipoUsuario").value,
+    ocupacao: document.getElementById("ocupacao").value
+  };
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(dados)
+  })
+  .then(() => {
+    alert("Cadastro recebido com sucesso! 🚀");
+    form.reset();
+    document.getElementById("ocupacao").style.display = "none";
+  })
+  .catch(() => {
+    alert("Erro ao enviar. Tente novamente.");
+  })
+  .finally(() => {
+    botao.disabled = false;
+    botao.innerText = "🚀 Quero fazer parte da Lista VIP";
+  });
+});
 </script>
 
 </body>
