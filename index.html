@@ -245,6 +245,16 @@ footer{
   .section{padding:80px 8vw}
   h1{font-size:72px}
 }
+  textarea{
+padding:18px;
+border:1px solid #dce6f2;
+border-radius:18px;
+font-size:16px;
+width:100%;
+min-height:140px;
+font-family:Arial,sans-serif;
+resize:vertical;
+}
 </style>
 </head>
 <body>
@@ -254,7 +264,9 @@ footer{
     Pronto<span>Aí</span>
   </div>
 
-Acesso antecipado
+<a href="#cadastro" class="btn header-btn">
+🔥 Quero ser um dos primeiros clientes
+</a>
 
 </header>
 <section class="hero">
@@ -327,6 +339,95 @@ Acesso antecipado
     <div class="card"><h3>👤 Monte seu perfil profissional</h3><p>Mostre suas especialidades.</p></div>
     <div class="card"><h3>⭐ Crie reputação</h3><p>Receba avaliações e cresça.</p></div>
   </div>
+</section>
+  <section id="avaliacao" class="section gray">
+
+<h2>❤️ Ajude a construir o ProntoAí</h2>
+
+<p class="center">
+Sua opinião é muito importante. Queremos criar a plataforma mais segura e prática para contratar serviços no Brasil.
+</p>
+
+<form onsubmit="event.preventDefault();alert('Obrigado! Sua opinião foi enviada 🚀')">
+
+<input type="text" placeholder="Seu nome" required>
+
+<input type="text" placeholder="WhatsApp para validação" required>
+
+<select required>
+<option value="">Você é?</option>
+<option>Cliente</option>
+<option>Profissional</option>
+<option>Empresa</option>
+</select>
+
+<select required>
+<option value="">Sua cidade</option>
+<option>Santos</option>
+<option>São Vicente</option>
+<option>Praia Grande</option>
+<option>Cubatão</option>
+<option>Peruíbe</option>
+<option>Itanhaém</option>
+<option>Mongaguá</option>
+<option>Outra cidade</option>
+</select>
+
+<select required>
+<option value="">Como você avalia a ideia do ProntoAí?</option>
+<option>⭐⭐⭐⭐⭐ Excelente</option>
+<option>⭐⭐⭐⭐ Muito boa</option>
+<option>⭐⭐⭐ Boa</option>
+<option>⭐⭐ Regular</option>
+<option>⭐ Precisa melhorar</option>
+</select>
+
+<select required>
+<option value="">Você indicaria o ProntoAí para amigos?</option>
+<option>Sim, com certeza</option>
+<option>Talvez</option>
+<option>Ainda não sei</option>
+</select>
+
+<textarea
+placeholder="Escreva sua opinião, sugestão ou o que você espera do ProntoAí..."
+required>
+</textarea>
+
+<button class="btn" type="submit">
+🚀 Enviar minha opinião
+</button>
+
+</form>
+
+<div class="grid" style="margin-top:50px">
+
+<div class="card">
+<h3>⭐⭐⭐⭐⭐</h3>
+<p>
+"Finalmente uma plataforma confiável para contratar profissionais."
+</p>
+<b>— Cliente, Santos</b>
+</div>
+
+<div class="card">
+<h3>⭐⭐⭐⭐⭐</h3>
+<p>
+"Se tiver bastante clientes, quero ser um dos primeiros profissionais."
+</p>
+<b>— Eletricista, Praia Grande</b>
+</div>
+
+<div class="card">
+<h3>⭐⭐⭐⭐⭐</h3>
+<p>
+"Faltava uma solução assim aqui na Baixada Santista."
+</p>
+<b>— Cliente, São Vicente</b>
+</div>
+
+</div>
+
 </section>
 <section class="section">
   <h2>O que as pessoas querem resolver?</h2>
