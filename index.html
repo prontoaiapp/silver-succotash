@@ -794,10 +794,12 @@ footer h3{
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQWzQiZ5GDBq3LMEIeZUsuV_FqSlkNYRPAKGI02wbaEoYwEchatZKqKVm3ySgJIrLm/exec";
 
 function mostrarOcupacao() {
-  const tipo = document.getElementById("tipoUsuario").value;
+  const tipo = document.getElementById("tipoUsuario");
   const ocupacao = document.getElementById("ocupacao");
 
-  if (tipo === "Profissional") {
+  if (!tipo || !ocupacao) return;
+
+  if (tipo.value === "Profissional") {
     ocupacao.style.display = "block";
     ocupacao.required = true;
   } else {
@@ -814,69 +816,73 @@ function enviarParaPlanilha(dados, form, botao, textoOriginal) {
   fetch(SCRIPT_URL, {
     method: "POST",
     mode: "no-cors",
-    body: JSON.stringify(dados)
-  })
-  .then(() => {
+    body: new URLSearchParams(dados)
+  });
+
+  setTimeout(() => {
     alert("Enviado com sucesso! 🚀");
     form.reset();
 
     const ocupacao = document.getElementById("ocupacao");
-    if (ocupacao) {
-      ocupacao.style.display = "none";
-    }
-  })
-  .catch(() => {
-    alert("Erro ao enviar. Tente novamente.");
-  })
-  .finally(() => {
+    if (ocupacao) ocupacao.style.display = "none";
+
     botao.disabled = false;
     botao.innerText = textoOriginal;
-  });
+  }, 1200);
 }
 
-document.getElementById("leadForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", function() {
+  const leadForm = document.getElementById("leadForm");
+  const avaliacaoForm = document.getElementById("avaliacaoForm");
 
-  const form = e.target;
-  const botao = form.querySelector("button");
+  if (leadForm) {
+    leadForm.addEventListener("submit", function(e) {
+      e.preventDefault();
 
-  const dados = {
-    origem: "Cadastro Lista VIP",
-    nome: form.querySelector('input[placeholder="Nome completo"]').value,
-    whatsapp: form.querySelector('input[placeholder="WhatsApp"]').value,
-    email: form.querySelector('input[placeholder="E-mail"]').value,
-    cidade: document.getElementById("cidade").value,
-    tipo: document.getElementById("tipoUsuario").value,
-    ocupacao: document.getElementById("ocupacao").value,
-    opiniao: "",
-    avaliacao: "",
-    indicaria: ""
-  };
+      const form = e.target;
+      const botao = form.querySelector("button");
 
-  enviarParaPlanilha(dados, form, botao, "🚀 Quero fazer parte da Lista VIP");
-});
+      const dados = {
+        origem: "Cadastro Lista VIP",
+        nome: form.querySelector('input[placeholder="Nome completo"]').value,
+        whatsapp: form.querySelector('input[placeholder="WhatsApp"]').value,
+        email: form.querySelector('input[placeholder="E-mail"]').value,
+        cidade: document.getElementById("cidade").value,
+        tipo: document.getElementById("tipoUsuario").value,
+        ocupacao: document.getElementById("ocupacao").value,
+        avaliacao: "",
+        indicaria: "",
+        opiniao: ""
+      };
 
-document.getElementById("avaliacaoForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+      enviarParaPlanilha(dados, form, botao, "🚀 Quero fazer parte da Lista VIP");
+    });
+  }
 
-  const form = e.target;
-  const botao = form.querySelector("button");
-  const campos = form.querySelectorAll("input, select, textarea");
+  if (avaliacaoForm) {
+    avaliacaoForm.addEventListener("submit", function(e) {
+      e.preventDefault();
 
-  const dados = {
-    origem: "Avaliação",
-    nome: campos[0].value,
-    whatsapp: campos[1].value,
-    email: "",
-    tipo: campos[2].value,
-    cidade: campos[3].value,
-    ocupacao: "",
-    avaliacao: campos[4].value,
-    indicaria: campos[5].value,
-    opiniao: campos[6].value
-  };
+      const form = e.target;
+      const botao = form.querySelector("button");
+      const campos = form.querySelectorAll("input, select, textarea");
 
-  enviarParaPlanilha(dados, form, botao, "🚀 Enviar minha opinião");
+      const dados = {
+        origem: "Avaliação",
+        nome: campos[0].value,
+        whatsapp: campos[1].value,
+        email: "",
+        tipo: campos[2].value,
+        cidade: campos[3].value,
+        ocupacao: "",
+        avaliacao: campos[4].value,
+        indicaria: campos[5].value,
+        opiniao: campos[6].value
+      };
+
+      enviarParaPlanilha(dados, form, botao, "🚀 Enviar minha opinião");
+    });
+  }
 });
 </script>
 
