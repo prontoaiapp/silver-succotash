@@ -791,55 +791,59 @@ footer h3{
 </footer>
 
 <script>
-<script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQWzQiZ5GDBq3LMEIeZUsuV_FqSlkNYRPAKGI02wbaEoYwEchatZKqKVm3ySgJIrLm/exec";
 
 function mostrarOcupacao() {
   const tipo = document.getElementById("tipoUsuario");
   const ocupacao = document.getElementById("ocupacao");
 
-  if (tipo.value === "Profissional") {
+  if (tipo && ocupacao && tipo.value === "Profissional") {
     ocupacao.style.display = "block";
     ocupacao.required = true;
-  } else {
+  } else if (ocupacao) {
     ocupacao.style.display = "none";
     ocupacao.required = false;
     ocupacao.value = "";
   }
 }
 
-document.getElementById("leadForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
+window.addEventListener("load", function() {
+  const form = document.getElementById("leadForm");
   const botao = document.getElementById("btnLead");
-  botao.innerText = "Enviando...";
-  botao.disabled = true;
 
-  const dados = new URLSearchParams();
+  if (!form || !botao) return;
 
-  dados.append("origem", "QUERO ENVIAR MEU CADASTRO");
-  dados.append("nome", document.querySelector('input[placeholder="Nome completo"]').value);
-  dados.append("whatsapp", document.querySelector('input[placeholder="WhatsApp"]').value);
-  dados.append("email", document.querySelector('input[placeholder="E-mail"]').value);
-  dados.append("cidade", document.getElementById("cidade").value);
-  dados.append("tipo", document.getElementById("tipoUsuario").value);
-  dados.append("ocupacao", document.getElementById("ocupacao").value);
+  botao.disabled = false;
 
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    body: dados
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    botao.innerText = "Enviando...";
+
+    const dados = new URLSearchParams();
+    dados.append("origem", "Cadastro Lista VIP");
+    dados.append("nome", document.querySelector('input[placeholder="Nome completo"]').value);
+    dados.append("whatsapp", document.querySelector('input[placeholder="WhatsApp"]').value);
+    dados.append("email", document.querySelector('input[placeholder="E-mail"]').value);
+    dados.append("cidade", document.getElementById("cidade").value);
+    dados.append("tipo", document.getElementById("tipoUsuario").value);
+    dados.append("ocupacao", document.getElementById("ocupacao").value);
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: dados
+    });
+
+    setTimeout(function() {
+      alert("Cadastro recebido com sucesso! 🚀");
+      form.reset();
+      mostrarOcupacao();
+      botao.innerText = "🚀 Quero fazer parte da Lista VIP";
+      botao.disabled = false;
+    }, 1200);
   });
-
-  setTimeout(function() {
-    alert("Cadastro recebido com sucesso! 🚀");
-    document.getElementById("leadForm").reset();
-    document.getElementById("ocupacao").style.display = "none";
-    botao.innerText = "🚀 Quero fazer parte da Lista VIP";
-    botao.disabled = false;
-  }, 1500);
 });
 </script>
-
 </body>
 </html>
