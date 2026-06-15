@@ -1,279 +1,441 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ProntoAí | Conexão que resolve</title>
+
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,sans-serif;color:#071225;background:#fff}
-header{
-  position:sticky;
-  top:0;
-  background:#fff;
-  padding:16px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid #eee;
-  z-index:999999;
+
+*{
+box-sizing:border-box;
 }
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+color:#071225;
+background:#fff;
+}
+
+header{
+
+position:sticky;
+
+top:0;
+
+background:#fff;
+
+padding:16px 20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+border-bottom:1px solid #eee;
+
+z-index:999999;
+
+}
+
 .logo{
-  display:flex;
-  align-items:center;
-  gap:0;
-  font-size:32px;
-  font-weight:900;
+
+display:flex;
+
+align-items:center;
+
 }
 
 .logo img{
-  width:86px;
-  height:86px;
-  object-fit:contain;
 
-  margin-right:-6px;
+width:230px;
+
+height:auto;
+
+object-fit:contain;
+
 }
-.logo span{color:#55c96b}
+
 .btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:16px 22px;
-  border-radius:40px;
-  background:linear-gradient(90deg,#1f6fff,#55c96b);
-  color:#fff;
-  text-decoration:none;
-  font-weight:800;
-  border:none;
-  text-align:center;
-  cursor:pointer;
-  position:relative;
-  z-index:999999;
-  pointer-events:auto;
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:16px 22px;
+
+border-radius:40px;
+
+background:linear-gradient(90deg,#1f6fff,#55c96b);
+
+color:#fff;
+
+text-decoration:none;
+
+font-weight:800;
+
+border:none;
+
+cursor:pointer;
+
+transition:.25s;
+
 }
+
+.btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
 .header-btn{
-  font-size:15px;
-  white-space:nowrap;
-  padding:13px 16px;
+
+font-size:15px;
+
+white-space:nowrap;
+
+padding:13px 18px;
+
 }
+
 .hero{
-  position:relative;
-  overflow:hidden;
-  padding:70px 24px;
-  background:linear-gradient(180deg,#eefaff,#fff);
+
+position:relative;
+
+overflow:hidden;
+
+padding:70px 24px;
+
+background:linear-gradient(180deg,#eefaff,#fff);
+
 }
+
 .hero::after{
-  content:"";
-  position:absolute;
-  width:320px;
-  height:320px;
-  background:url("IMG_1132.png") no-repeat center;
-  background-size:contain;
-  opacity:.05;
-  right:-90px;
-  top:160px;
-  pointer-events:none;
+
+content:"";
+
+position:absolute;
+
+width:320px;
+
+height:320px;
+
+background:url("logo-prontoai.png") no-repeat center;
+
+background-size:contain;
+
+opacity:.04;
+
+right:-90px;
+
+top:160px;
+
+pointer-events:none;
+
 }
+
 .badge{
-  display:inline-block;
-  background:#eaf8ff;
-  padding:12px 18px;
-  border-radius:40px;
-  margin-bottom:25px;
-  font-weight:800;
+
+display:inline-block;
+
+background:#eaf8ff;
+
+padding:12px 18px;
+
+border-radius:40px;
+
+margin-bottom:25px;
+
+font-weight:800;
+
 }
+
 h1{
-  font-size:42px;
-  line-height:1;
-  letter-spacing:-2px;
-  margin:0 0 25px;
+
+font-size:42px;
+
+line-height:1;
+
+letter-spacing:-2px;
+
+margin:0 0 25px;
+
 }
+
 .grad{
-  background:linear-gradient(90deg,#1f6fff,#55c96b,#ffd633);
-  -webkit-background-clip:text;
-  color:transparent;
+
+background:linear-gradient(
+
+90deg,
+
+#1f6fff,
+
+#55c96b,
+
+#ffd633
+
+);
+
+-webkit-background-clip:text;
+
+color:transparent;
+
 }
-p{font-size:20px;line-height:1.5;color:#5f6878}
-.actions{display:grid;gap:14px;margin-top:28px}
+
+p{
+
+font-size:20px;
+
+line-height:1.5;
+
+color:#5f6878;
+
+}
+
+.actions{
+
+display:grid;
+
+gap:14px;
+
+margin-top:28px;
+
+}
+
 .outline{
-  background:#fff;
-  color:#55c96b;
-  border:3px solid #55c96b;
+
+background:#fff;
+
+color:#55c96b;
+
+border:3px solid #55c96b;
+
 }
+
 .proof{
-  margin-top:20px;
-  padding:18px;
-  background:#fff;
-  border:1px solid #dce6f2;
-  border-radius:24px;
-  font-weight:800;
-  color:#071225;
-  box-shadow:0 10px 25px rgba(0,0,0,.05);
-}
-.stats{
-  display:grid;
-  gap:14px;
-  margin-top:28px;
-}
-.stat{
-  background:#fff;
-  border:1px solid #dce6f2;
-  border-radius:24px;
-  padding:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,.05);
-}
-.stat strong{
-  display:block;
-  font-size:30px;
-  color:#071225;
-}
-.stat span{
-  color:#5f6878;
-  font-weight:700;
-}
-.section{padding:65px 24px}
-.gray{background:#f6faff}
-h2{
-  font-size:40px;
-  line-height:1.05;
-  text-align:center;
-  margin:0 0 18px;
-}
-.center{text-align:center;max-width:760px;margin:0 auto 35px}
-.grid{display:grid;gap:18px}
-.card{
-  background:#fff;
-  border:1px solid #dce6f2;
-  border-radius:28px;
-  padding:26px;
-  box-shadow:0 10px 25px rgba(0,0,0,.06);
-}
-.icon{font-size:52px;margin-bottom:18px}
-.card h3{font-size:26px;margin:0 0 8px}
-.steps .card strong{
-  display:inline-grid;
-  place-items:center;
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:linear-gradient(90deg,#1f6fff,#55c96b);
-  color:#fff;
-  font-size:24px;
-  margin-bottom:15px;
-}
-.pro{
-  background:linear-gradient(135deg,#1f6fff,#55c96b);
-  color:#fff;
-}
-.pro p,.pro h2{color:#fff}
-.pro .card{
-  background:rgba(255,255,255,.15);
-  color:#fff;
-  border-color:rgba(255,255,255,.25);
-}
-.cities{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px;
-}
-.cities span{
-  background:#fff;
-  border:1px solid #dce6f2;
-  border-radius:40px;
-  padding:14px 20px;
-  font-weight:800;
-}
-.testimonials{
-  display:grid;
-  gap:18px;
-}
-.testimonial{
-  background:#fff;
-  border:1px solid #dce6f2;
-  border-radius:28px;
-  padding:24px;
-  box-shadow:0 10px 25px rgba(0,0,0,.06);
-}
-.testimonial strong{
-  display:block;
-  margin-top:12px;
-  color:#071225;
-}
-form{
-  max-width:620px;
-  margin:auto;
-  display:grid;
-  gap:14px;
-}
-input,select{
-  padding:18px;
-  border:1px solid #dce6f2;
-  border-radius:18px;
-  font-size:16px;
-  width:100%;
-}
-footer{
-  text-align:center;
-  padding:40px 20px;
-  border-top:1px solid #eee;
-}
-.social-links{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:14px;
-  margin-top:20px;
-}
-.social-links a{
-  padding:12px 18px;
-  border-radius:30px;
-  background:#f6faff;
-  color:#071225;
-  text-decoration:none;
-  font-weight:800;
-  border:1px solid #dce6f2;
-}
-@media(max-width:480px){
-  header{padding:14px 16px}
-  .logo{
-  font-size:26px;
-  gap:6px;
-}
-  .logo img{
-  width:86px;
-  height:86px;
-}
-  .header-btn{font-size:14px;padding:12px 14px}
-}
-@media(min-width:800px){
-  .grid,.stats,.testimonials{grid-template-columns:repeat(3,1fr)}
-  .actions{display:flex}
-  .hero{padding:90px 8vw}
-  .section{padding:80px 8vw}
-  h1{font-size:72px}
-}
-  textarea{
+
+margin-top:20px;
+
 padding:18px;
+
+background:#fff;
+
 border:1px solid #dce6f2;
-border-radius:18px;
-font-size:16px;
-width:100%;
-min-height:140px;
-font-family:Arial,sans-serif;
-resize:vertical;
+
+border-radius:24px;
+
+font-weight:800;
+
+color:#071225;
+
+box-shadow:0 10px 25px rgba(0,0,0,.05);
+
 }
+
+.stats{
+
+display:grid;
+
+gap:14px;
+
+margin-top:28px;
+
+}
+
+.stat{
+
+background:#fff;
+
+border:1px solid #dce6f2;
+
+border-radius:24px;
+
+padding:18px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.05);
+
+}
+
+.stat strong{
+
+display:block;
+
+font-size:30px;
+
+color:#071225;
+
+}
+
+.stat span{
+
+color:#5f6878;
+
+font-weight:700;
+
+}
+
+.section{
+
+padding:65px 24px;
+
+}
+
+.gray{
+
+background:#f6faff;
+
+}
+
+h2{
+
+font-size:40px;
+
+line-height:1.05;
+
+text-align:center;
+
+margin:0 0 18px;
+
+}
+
+.center{
+
+text-align:center;
+
+max-width:760px;
+
+margin:0 auto 35px;
+
+}
+
+.grid{
+
+display:grid;
+
+gap:18px;
+
+}
+
+.card{
+
+background:#fff;
+
+border:1px solid #dce6f2;
+
+border-radius:28px;
+
+padding:26px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+}
+
+.icon{
+
+font-size:52px;
+
+margin-bottom:18px;
+
+}
+
+.card h3{
+
+font-size:26px;
+
+margin:0 0 8px;
+
+}
+
+@media(max-width:480px){
+
+header{
+
+padding:14px 16px;
+
+}
+
+.logo img{
+
+width:190px;
+
+}
+
+.header-btn{
+
+font-size:14px;
+
+padding:12px 14px;
+
+}
+
+}
+
+@media(min-width:800px){
+
+.grid,.stats{
+
+grid-template-columns:repeat(3,1fr);
+
+}
+
+.actions{
+
+display:flex;
+
+}
+
+.hero{
+
+padding:90px 8vw;
+
+}
+
+.section{
+
+padding:80px 8vw;
+
+}
+
+h1{
+
+font-size:72px;
+
+}
+
+}
+
 </style>
+
 </head>
+
 <body>
+
 <header>
-  <div class="logo">
-    <img src="logo-prontoai.png" alt="ProntoAí">
+
+<div class="logo">
+
+<img src="logo-prontoai.png" alt="ProntoAí">
+
 </div>
 
 <a href="#cadastro" class="btn header-btn">
-🔥 Quero acesso Vip
+
+🚀 Quero acesso antecipado
+
 </a>
 
 </header>
