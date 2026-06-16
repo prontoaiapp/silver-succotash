@@ -9,6 +9,26 @@
 </style>
 </head>
 <body>
+  <script>
+
+const USUARIO = "admin";
+const SENHA = "irmandade2026$";
+
+const usuario = prompt("Usuário:");
+
+if (usuario !== USUARIO) {
+  alert("Usuário inválido!");
+  window.location.href = "/";
+}
+
+const senha = prompt("Senha:");
+
+if (senha !== SENHA) {
+  alert("Senha inválida!");
+  window.location.href = "/";
+}
+
+</script>
 <header class="top">
   <div class="brand">Pronto<span>Aí</span> Admin</div>
   <div class="badge">Pré-lançamento</div>
