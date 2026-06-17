@@ -717,6 +717,44 @@ footer h3{
     font-size:72px;
   }
 }
+
+/* ===== ÍCONES 3D DOS SERVIÇOS ===== */
+
+.icone-servico{
+  width:125px;
+  height:125px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto 20px auto;
+  transition:.3s ease;
+}
+
+.icone-servico:hover{
+  transform:scale(1.08);
+}
+
+.card{
+  text-align:center;
+}
+
+.card h3{
+  margin-top:0;
+}
+
+.icon{
+  display:none;
+}
+
+@media(max-width:480px){
+
+  .icone-servico{
+    width:95px;
+    height:95px;
+    margin-bottom:18px;
+  }
+
+}
+
 </style>
 </head>
 
@@ -767,13 +805,41 @@ footer h3{
   <h2>Já precisou de um serviço e não sabia quem chamar?</h2>
   <p class="center">Chega de grupos de WhatsApp, Google, indicações incertas e demora. O ProntoAí coloca o profissional certo na palma da sua mão.</p>
 
-  <div class="grid">
-    <div class="card"><div class="icon">🚿</div><h3>Chuveiro queimou?</h3><p>Eletricistas ou lojistas prontos para resolver.</p></div>
-    <div class="card"><div class="icon">❄️</div><h3>Geladeira ou máquina parou?</h3><p>Técnicos perto de você.</p></div>
-    <div class="card"><div class="icon">🚚</div><h3>Precisou de mudança?</h3><p>Fretes e carregadores avaliados.</p></div>
-    <div class="card"><div class="icon">💧</div><h3>Encanamento deu problema?</h3><p>Encanadores verificados.</p></div>
-    <div class="card"><div class="icon">🧹</div><h3>Precisa de diarista?</h3><p>Ajuda para casa com praticidade.</p></div>
-    <div class="card"><div class="icon">💄</div><h3>Quer beleza?</h3><p>Barbeiro, cabeleireiro, manicure e outros profissionais na sua região.</p></div>
+  <div class="grade">
+  <div class="cartao">
+    <img class="icone-servico" src="chuveiro.PNG" alt="Chuveiro">
+    <h3>Chuveiro queimou?</h3>
+    <p>Eletricistas ou lojistas prontos para resolver.</p>
+  </div>
+
+  <div class="cartao">
+    <img class="icone-servico" src="geladeira.PNG" alt="Geladeira">
+    <h3>Geladeira ou máquina parou?</h3>
+    <p>Técnicos perto de você.</p>
+  </div>
+
+  <div class="cartao">
+    <img class="icone-servico" src="mudanca.PNG" alt="Mudança">
+    <h3>Precisou de mudança?</h3>
+    <p>Fretes e carregadores avaliados.</p>
+  </div>
+
+  <div class="cartao">
+    <img class="icone-servico" src="encanamento.PNG" alt="Encanamento">
+    <h3>Encanamento deu problema?</h3>
+    <p>Encanadores verificados.</p>
+  </div>
+
+  <div class="cartao">
+    <img class="icone-servico" src="diarista.PNG" alt="Diarista">
+    <h3>Conta de diarista?</h3>
+    <p>Ajuda para casa com praticidade.</p>
+  </div>
+
+  <div class="cartao">
+    <img class="icone-servico" src="beleza.PNG" alt="Beleza">
+    <h3>Beleza?</h3>
+    <p>Barbeiro, cabeleireiro, manicure e outros profissionais.</p>
   </div>
 </section>
 
