@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ProntoAí | Tudo o que você precisa, perto de você</title>
+  <meta name="description" content="Serviços, entregas, fretes e OPS Operation em uma única plataforma. Entre para a Lista VIP do ProntoAí.">
+  <meta name="theme-color" content="#071f39">
+
+  <meta property="og:title" content="ProntoAí | Tudo perto de você">
+  <meta property="og:description" content="Serviços, entregas, fretes e OPS Operation em uma única plataforma.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.12.0/maplibre-gl.min.js"></script>
+
+  <style>
+    :root{
+      --blue-950:#06192d;
+      --blue-900:#0f4c86;
+      --blue-800:#155c9d;
+      --blue-700:#1b6bb5;
+      --blue-600:#247bc3;
+      --lime:#a6e100;
+      --lime-hover:#b8ed22;
+      --white:#ffffff;
+      --surface:#f7f9fc;
+      --surface-2:#eef5fb;
+      --ink:#0b1728;
+      --muted:#647084;
+      --line:rgba(15,76,134,.14);
+      --line-dark:rgba(255,255,255,.12);
+      --shadow-sm:0 14px 34px rgba(7,31,57,.08);
+      --shadow-md:0 24px 62px rgba(7,31,57,.14);
+      --shadow-lg:0 40px 90px rgba(0,0,0,.28);
+      --radius-xl:36px;
+      --radius-lg:26px;
+      --radius-md:18px;
+      --container:1220px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"Inter",sans-serif;
+      color:var(--ink);
+      background:var(--white);
+      overflow-x:hidden;
+    }
+    img{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    h1,h2,h3,h4{font-family:"Manrope",sans-serif;letter-spacing:-.045em}
+    .container{width:min(var(--container),calc(100% - 40px));margin:0 auto}
+    .section{padding:92px 0}
+    .section-light{background:var(--surface)}
+    .section-dark{
+      color:var(--white);
+      background:
+        radial-gradient(circle at 86% 10%,rgba(166,225,0,.10),transparent 28%),
+        radial-gradient(circle at 8% 90%,rgba(36,123,195,.18),transparent 34%),
+        linear-gradient(145deg,var(--blue-950),var(--blue-900));
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.075em;
+      text-transform:uppercase;
+    }
+    .eyebrow-dark{
+      color:#dbff85;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.13);
+    }
+    .eyebrow-light{
+      color:var(--blue-900);
+      background:#edf6ff;
+      border:1px solid var(--line);
+    }
+    .pulse{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--lime);
+      box-shadow:0 0 0 0 rgba(166,225,0,.5);
+      animation:pulse 2s infinite;
+    }
+    @keyframes pulse{
+      70%{box-shadow:0 0 0 9px rgba(166,225,0,0)}
+      100%{box-shadow:0 0 0 0 rgba(166,225,0,0)}
+    }
+
+    .btn{
+      border:0;
+      border-radius:999px;
+      padding:14px 22px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      font-weight:800;
+      text-align:center;
+      transition:.22s ease;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{
+      background:var(--lime);
+      color:#173000;
+      box-shadow:0 14px 34px rgba(166,225,0,.22);
+    }
+    .btn-primary:hover{background:var(--lime-hover)}
+    .btn-secondary{
+      background:var(--white);
+      color:var(--blue-900);
+      border:1px solid var(--line);
+    }
+    .btn-ghost{
+      color:var(--white);
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.17);
+    }
+
+    /* HEADER */
+    .site-header{
+      position:fixed;
+      inset:0 0 auto;
+      z-index:100;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background:rgba(6,25,45,.84);
+      backdrop-filter:blur(18px);
+    }
+    .nav{
+      min-height:80px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+    .brand img{height:56px;width:auto;object-fit:contain}
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      color:rgba(255,255,255,.76);
+      font-size:.9rem;
+      font-weight:700;
+    }
+    .nav-links a:hover{color:var(--white)}
+    .menu-btn{
+      display:none;
+      width:46px;height:46px;
+      border-radius:15px;
+      border:1px solid var(--line-dark);
+      background:rgba(255,255,255,.06);
+      color:var(--white);
+      font-size:1.25rem;
+    }
+    .mobile-menu{
+      display:none;
+      position:absolute;
+      top:80px;
+      left:12px;
+      right:12px;
+      padding:14px;
+      border-radius:20px;
+      background:var(--blue-950);
+      border:1px solid var(--line-dark);
+      box-shadow:var(--shadow-lg);
+    }
+    .mobile-menu.open{display:grid;gap:6px}
+    .mobile-menu a{padding:12px;color:var(--white);font-weight:700}
+
+    /* HERO */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding:145px 0 70px;
+      color:var(--white);
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 84% 14%,rgba(166,225,0,.10),transparent 24%),
+        radial-gradient(circle at 8% 65%,rgba(36,123,195,.20),transparent 35%),
+        linear-gradient(145deg,var(--blue-950),#0a355d 56%,var(--blue-900));
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:46px;
+      align-items:center;
+    }
+    .hero-copy h1{
+      font-size:clamp(3.25rem,5.7vw,5.9rem);
+      line-height:.95;
+      margin:22px 0;
+      max-width:700px;
+    }
+    .hero-copy h1 span{color:var(--lime)}
+    .hero-lead{
+      max-width:600px;
+      color:rgba(255,255,255,.74);
+      font-size:1.05rem;
+      line-height:1.72;
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:34px;
+      max-width:620px;
+    }
+    .hero-stat{
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.055);
+    }
+    .hero-stat strong{display:block;font-size:1.46rem}
+    .hero-stat span{
+      display:block;
+      margin-top:4px;
+      color:rgba(255,255,255,.58);
+      font-size:.72rem;
+      line-height:1.35;
+    }
+    .hero-proof{
+      margin-top:22px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:rgba(255,255,255,.72);
+      font-size:.85rem;
+      font-weight:700;
+    }
+    .proof-avatars{display:flex}
+    .proof-avatar{
+      width:31px;height:31px;border-radius:50%;
+      border:2px solid var(--blue-950);
+      margin-left:-7px;
+      display:grid;place-items:center;
+      background:linear-gradient(145deg,var(--blue-700),var(--blue-950));
+      font-size:.62rem;font-weight:900;
+    }
+    .proof-avatar:first-child{margin-left:0}
+
+    .hero-visual{
+      position:relative;
+      min-height:660px;
+      border-radius:40px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.13);
+      box-shadow:var(--shadow-lg);
+      background:#10263f;
+      isolation:isolate;
+    }
+    .hero-bg{
+      position:absolute;inset:0;
+      z-index:-4;
+      width:100%;height:100%;
+      object-fit:cover;
+    }
+    .hero-visual::before{
+      content:"";
+      position:absolute;inset:0;
+      z-index:-3;
+      background:
+        linear-gradient(180deg,rgba(6,25,45,.08),rgba(6,25,45,.44)),
+        linear-gradient(90deg,rgba(6,25,45,.38),transparent 52%);
+    }
+    .hero-placeholder{
+      position:absolute;inset:0;
+      z-index:-4;
+      display:grid;place-items:center;
+      background:
+        radial-gradient(circle at 65% 40%,rgba(36,123,195,.35),transparent 30%),
+        linear-gradient(145deg,#10263f,#071f39);
+      color:white;
+      text-align:center;
+    }
+    .hero-placeholder span{
+      padding:13px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:.78rem;
+      font-weight:800;
+    }
+
+    .iphone-real{
+      position:absolute;
+      left:51%;
+      top:52%;
+      transform:translate(-50%,-50%) rotate(2deg);
+      width:min(390px,68%);
+      max-height:92%;
+      object-fit:contain;
+      filter:drop-shadow(0 38px 50px rgba(0,0,0,.42));
+      z-index:3;
+      transition:transform .5s ease;
+    }
+    .hero-visual:hover .iphone-real{
+      transform:translate(-50%,-52%) rotate(1deg) scale(1.015);
+    }
+
+    .iphone{
+      position:absolute;
+      left:51%;
+      top:51%;
+      transform:translate(-50%,-50%) rotate(2deg);
+      width:min(345px,63%);
+      aspect-ratio:9/19.5;
+      border-radius:52px;
+      border:9px solid #111317;
+      background:#f8fbfd;
+      box-shadow:0 38px 82px rgba(0,0,0,.40);
+      overflow:hidden;
+      z-index:3;
+    }
+    .iphone::before{
+      content:"";
+      position:absolute;
+      top:12px;left:50%;
+      transform:translateX(-50%);
+      width:37%;height:30px;
+      border-radius:999px;
+      background:#080a0d;
+      z-index:5;
+    }
+    .iphone-screen{
+      position:absolute;inset:0;
+      padding:56px 14px 14px;
+      background:linear-gradient(180deg,#fbfdff,#eef4f8);
+      color:var(--ink);
+    }
+    .phone-topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-bottom:10px;
+      font-size:.64rem;font-weight:800;
+    }
+    .phone-logo{color:var(--blue-900)}
+    .phone-search{
+      height:42px;
+      border-radius:14px;
+      border:1px solid #dfe7ee;
+      background:white;
+      display:flex;
+      align-items:center;
+      padding:0 13px;
+      color:#657083;
+      font-size:.72rem;
+      box-shadow:0 8px 22px rgba(7,31,57,.08);
+    }
+    .phone-map{
+      position:relative;
+      height:48%;
+      margin-top:12px;
+      border-radius:18px;
+      overflow:hidden;
+      background:
+        linear-gradient(25deg,transparent 44%,rgba(255,255,255,.92) 45%,rgba(255,255,255,.92) 47%,transparent 48%),
+        linear-gradient(125deg,transparent 44%,rgba(255,255,255,.85) 45%,rgba(255,255,255,.85) 47%,transparent 48%),
+        linear-gradient(145deg,#d6edff,#b9dff8);
+    }
+    .phone-map::after{
+      content:"";
+      position:absolute;
+      width:50%;height:42%;
+      right:-10%;bottom:-10%;
+      border-radius:50%;
+      background:#71b8e5;
+      opacity:.6;
+    }
+    .phone-pin{
+      position:absolute;
+      width:13px;height:13px;border-radius:50%;
+      background:var(--lime);
+      border:3px solid white;
+      box-shadow:0 6px 16px rgba(7,31,57,.18);
+    }
+    .pin-a{left:20%;top:27%}.pin-b{left:58%;top:18%}.pin-c{left:68%;top:59%}.pin-d{left:37%;top:68%}
+    .phone-modules{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:6px;
+      margin-top:10px;
+    }
+    .phone-module{
+      height:48px;
+      border-radius:13px;
+      display:grid;
+      place-items:center;
+      background:var(--blue-950);
+      color:white;
+      font-size:.55rem;
+      font-weight:800;
+      text-align:center;
+    }
+    .phone-region{
+      margin-top:10px;
+      padding:11px;
+      border-radius:14px;
+      background:white;
+      border:1px solid #dfe7ee;
+      box-shadow:0 8px 20px rgba(7,31,57,.07);
+      font-size:.66rem;
+    }
+    .phone-region b{display:block;font-size:.76rem;margin-bottom:3px}
+    .phone-map-button{
+      margin-top:8px;
+      padding:10px;
+      border-radius:11px;
+      background:var(--blue-950);
+      color:white;
+      text-align:center;
+      font-weight:800;
+      font-size:.63rem;
+    }
+
+    .floating-card{
+      position:absolute;
+      z-index:4;
+      min-width:190px;
+      padding:14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.94);
+      color:var(--ink);
+      box-shadow:0 20px 45px rgba(7,31,57,.20);
+      backdrop-filter:blur(14px);
+    }
+    .floating-card b{display:block;font-size:.82rem}
+    .floating-card span{display:block;margin-top:4px;color:var(--muted);font-size:.7rem}
+    .float-delivery{right:18px;top:100px}
+    .float-freight{right:18px;top:220px}
+    .float-service{right:18px;bottom:110px}
+
+    /* SOLUTIONS */
+    .section-title{max-width:700px;margin-bottom:42px}
+    .section-title h2{
+      margin-top:14px;
+      font-size:clamp(2.25rem,4.3vw,4rem);
+      line-height:1.02;
+    }
+    .section-title p{margin-top:15px;color:var(--muted);line-height:1.7}
+
+    .solution-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+    .solution-card{
+      overflow:hidden;
+      border-radius:var(--radius-lg);
+      background:white;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-sm);
+      transition:.28s ease;
+    }
+    .solution-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-md)}
+    .solution-media{
+      position:relative;
+      height:250px;
+      overflow:hidden;
+      background:linear-gradient(145deg,var(--blue-900),var(--blue-950));
+    }
+    .solution-media img{width:100%;height:100%;object-fit:cover}
+    .solution-placeholder{
+      width:100%;height:100%;
+      display:grid;place-items:center;
+      color:white;text-align:center;
+      background:linear-gradient(145deg,var(--blue-900),var(--blue-950));
+    }
+    .solution-placeholder span{
+      padding:11px 13px;
+      border-radius:14px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:.72rem;font-weight:800;
+    }
+    .solution-icon{
+      position:absolute;
+      left:18px;bottom:-23px;
+      width:48px;height:48px;border-radius:15px;
+      display:grid;place-items:center;
+      background:var(--blue-950);
+      color:var(--lime);
+      border:3px solid white;
+      font-size:.74rem;font-weight:900;
+    }
+    .solution-content{padding:34px 20px 22px}
+    .solution-content h3{font-size:1.32rem}
+    .solution-content p{margin-top:8px;color:var(--muted);font-size:.87rem;line-height:1.6}
+    .solution-content a{display:inline-block;margin-top:17px;color:var(--blue-900);font-size:.81rem;font-weight:900}
+
+    /* HOW */
+    .how-head{max-width:700px;margin-bottom:34px}
+    .how-head h2{font-size:clamp(2.1rem,4vw,3.6rem);line-height:1.03;margin-top:14px}
+    .how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .how-card{
+      min-height:220px;
+      padding:23px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.055);
+    }
+    .how-card span{color:var(--lime);font-size:.76rem;font-weight:900}
+    .how-card h3{margin-top:28px;font-size:1.05rem}
+    .how-card p{margin-top:9px;color:rgba(255,255,255,.62);font-size:.82rem;line-height:1.55}
+
+    /* APP */
+    .app-layout{
+      display:grid;
+      grid-template-columns:250px 1fr;
+      gap:28px;
+      align-items:start;
+    }
+    .app-copy h2{font-size:2.3rem;line-height:1.05;margin-top:14px}
+    .app-copy p{margin-top:14px;color:var(--muted);line-height:1.65}
+    .app-carousel{
+      display:flex;
+      gap:18px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      scrollbar-width:none;
+      padding:4px 3px 25px;
+    }
+    .app-carousel::-webkit-scrollbar{display:none}
+    .app-slide{
+      flex:0 0 250px;
+      scroll-snap-align:center;
+      border-radius:26px;
+      background:white;
+      border:1px solid var(--line);
+      padding:13px;
+      box-shadow:var(--shadow-sm);
+    }
+    .phone-frame{
+      padding:8px;
+      border-radius:23px;
+      background:linear-gradient(160deg,var(--blue-950),var(--blue-700));
+    }
+    .phone-frame img{width:100%;border-radius:17px;background:#eef3f7}
+    .app-slide h4{margin-top:15px;font-size:.97rem}
+    .app-slide p{margin-top:7px;color:var(--muted);font-size:.78rem;line-height:1.5}
+    .carousel-controls{display:flex;justify-content:center;gap:10px;margin-top:8px}
+    .carousel-btn{
+      width:46px;height:46px;border-radius:50%;
+      border:0;background:var(--blue-950);color:white;font-size:1.35rem;
+    }
+
+    /* PROFESSIONAL */
+    .professional-band{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:28px;
+      align-items:stretch;
+    }
+    .professional-photo{
+      min-height:470px;
+      border-radius:32px;
+      overflow:hidden;
+      background:var(--surface-2);
+      box-shadow:var(--shadow-md);
+    }
+    .professional-photo img{width:100%;height:100%;object-fit:cover}
+    .professional-placeholder{
+      width:100%;height:100%;
+      display:grid;place-items:center;
+      color:white;text-align:center;
+      background:linear-gradient(145deg,var(--blue-900),var(--blue-950));
+    }
+    .professional-placeholder span{
+      padding:12px 15px;border-radius:14px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:.76rem;font-weight:800;
+    }
+    .professional-content{
+      padding:38px;
+      border-radius:32px;
+      border:1px solid var(--line);
+      background:white;
+      box-shadow:var(--shadow-sm);
+    }
+    .professional-content h2{
+      margin-top:14px;
+      font-size:clamp(2.2rem,4vw,3.7rem);
+      line-height:1.02;
+    }
+    .professional-content>p{margin-top:16px;color:var(--muted);line-height:1.7}
+    .perk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:25px}
+    .perk{
+      padding:18px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:var(--surface);
+    }
+    .perk b{display:block;font-size:.9rem}
+    .perk span{display:block;margin-top:6px;color:var(--muted);font-size:.76rem;line-height:1.5}
+
+    /* MAP */
+    .region-layout{
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:28px;
+      align-items:stretch;
+    }
+    .region-copy h2{font-size:2.3rem;line-height:1.05;margin-top:14px}
+    .region-copy p{margin-top:14px;color:var(--muted);line-height:1.65}
+    .map-box{
+      position:relative;
+      min-height:430px;
+      border-radius:30px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-md);
+      background:#d9ecfa;
+    }
+    #regionMap{position:absolute;inset:0}
+    .map-actions{
+      position:absolute;
+      right:18px;
+      bottom:18px;
+      z-index:5;
+    }
+    .map-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:13px 17px;
+      border-radius:999px;
+      background:white;
+      color:var(--blue-900);
+      box-shadow:var(--shadow-sm);
+      border:1px solid var(--line);
+      font-weight:800;
+      font-size:.82rem;
+    }
+    .maplibregl-ctrl-attrib{font-size:9px!important}
+    .map-city-marker{
+      width:15px;height:15px;border-radius:50%;
+      background:var(--lime);
+      border:3px solid white;
+      box-shadow:0 6px 15px rgba(7,31,57,.25);
+    }
+
+    /* SIGNUP */
+    .signup-wrap{
+      display:grid;
+      grid-template-columns:.90fr 1.10fr;
+      gap:24px;
+      padding:22px;
+      border-radius:38px;
+      background:
+        radial-gradient(circle at 18% 100%,rgba(36,123,195,.22),transparent 35%),
+        linear-gradient(145deg,var(--blue-950),var(--blue-900));
+      color:white;
+      box-shadow:var(--shadow-lg);
+    }
+    .signup-visual{
+      position:relative;
+      min-height:620px;
+      border-radius:28px;
+      overflow:hidden;
+      background:#15344e;
+    }
+    .signup-photo{
+      position:absolute;inset:0;
+      width:100%;height:100%;object-fit:cover;
+    }
+    .signup-placeholder{
+      position:absolute;inset:0;
+      display:grid;place-items:center;
+      color:white;text-align:center;
+      background:linear-gradient(145deg,var(--blue-900),var(--blue-950));
+    }
+    .signup-placeholder span{
+      padding:12px 15px;border-radius:14px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:.76rem;font-weight:800;
+    }
+    .signup-visual::after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(180deg,transparent 26%,rgba(6,25,45,.94));
+    }
+    .signup-copy{
+      position:absolute;
+      z-index:2;
+      left:26px;right:26px;bottom:25px;
+    }
+    .signup-copy h2{font-size:2.6rem;line-height:1.02}
+    .signup-copy p{margin-top:12px;color:rgba(255,255,255,.72);line-height:1.6}
+    .signup-benefits{display:grid;gap:10px;margin-top:19px}
+    .signup-benefits div{display:flex;gap:9px;align-items:center;font-size:.85rem;font-weight:700}
+    .signup-benefits i{font-style:normal;color:var(--lime)}
+
+    .form-card{
+      padding:30px;
+      border-radius:28px;
+      background:white;
+      color:var(--ink);
+    }
+    .progress{display:flex;gap:8px;margin-bottom:24px}
+    .progress span{height:7px;flex:1;border-radius:999px;background:#e6eef5}
+    .progress span.active{background:var(--lime)}
+    .form-step{display:none}.form-step.active{display:block}
+    .form-step h3{font-size:1.48rem}
+    .form-step>p{margin-top:7px;margin-bottom:20px;color:var(--muted);font-size:.89rem;line-height:1.55}
+    .type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .type-btn{
+      min-height:118px;
+      padding:16px;
+      text-align:left;
+      border-radius:17px;
+      border:1px solid #dce6ef;
+      background:#fbfdff;
+      transition:.2s ease;
+    }
+    .type-btn:hover,.type-btn.active{
+      border-color:var(--blue-700);
+      background:#eef7ff;
+      transform:translateY(-2px);
+    }
+    .type-btn b{display:block;margin-top:19px;font-size:.85rem}
+    .type-btn small{display:block;margin-top:4px;color:var(--muted)}
+    .field{margin-bottom:14px}
+    .field label{display:block;margin-bottom:7px;color:#475569;font-size:.77rem;font-weight:800}
+    .field input,.field select{
+      width:100%;
+      padding:14px 15px;
+      border-radius:14px;
+      border:1px solid #dce6ef;
+      background:#fbfdff;
+      outline:none;
+    }
+    .field input:focus,.field select:focus{
+      border-color:var(--blue-700);
+      box-shadow:0 0 0 4px rgba(27,107,181,.09);
+    }
+    .form-actions{display:flex;gap:10px;margin-top:19px}
+    .form-actions .btn{flex:1}
+    .form-error{min-height:20px;margin-top:10px;color:#b42318;font-size:.8rem;font-weight:700}
+    .privacy{margin-top:12px;color:var(--muted);font-size:.73rem;text-align:center}
+    .success{text-align:center;padding:25px 5px}
+    .success-icon{
+      width:76px;height:76px;margin:0 auto 18px;
+      border-radius:23px;display:grid;place-items:center;
+      background:#eef9d5;color:#5e8200;font-size:2rem;font-weight:900;
+    }
+
+    /* FOOTER */
+    footer{padding:48px 0 28px;background:var(--blue-950);color:white}
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.25fr .8fr .8fr .8fr;
+      gap:34px;
+      align-items:start;
+    }
+    .footer-brand img{height:66px;width:auto}
+    .footer-brand p{margin-top:14px;color:rgba(255,255,255,.55);font-size:.82rem;line-height:1.6}
+    .footer-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.85)}
+    .footer-col nav{display:grid;gap:10px;margin-top:14px}
+    .footer-col a{color:rgba(255,255,255,.57);font-size:.82rem}
+    .footer-col a:hover{color:white}
+    .footer-social{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .footer-social a{
+      width:48px;height:48px;border-radius:15px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.11);
+    }
+    .footer-social img{width:34px;height:34px;object-fit:contain}
+    .copyright{
+      margin-top:30px;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,.09);
+      color:rgba(255,255,255,.42);
+      font-size:.75rem;
+      text-align:center;
+    }
+    .whatsapp{
+      position:fixed;
+      right:18px;bottom:18px;
+      z-index:90;
+      width:58px;height:58px;border-radius:50%;
+      display:grid;place-items:center;
+      background:#25d366;color:white;
+      box-shadow:0 15px 35px rgba(0,0,0,.25);
+      font-size:1.25rem;font-weight:900;
+    }
+
+    @media(max-width:1080px){
+      .hero-grid,.signup-wrap,.professional-band{grid-template-columns:1fr}
+      .hero-copy{text-align:center}
+      .hero-lead{margin-inline:auto}
+      .hero-actions,.hero-proof{justify-content:center}
+      .hero-stats{margin-inline:auto}
+      .hero-visual{min-height:600px}
+      .solution-grid{grid-template-columns:repeat(2,1fr)}
+      .app-layout,.region-layout{grid-template-columns:1fr}
+      .professional-photo{min-height:460px}
+    }
+
+    @media(max-width:760px){
+      .container{width:min(100% - 24px,var(--container))}
+      .section{padding:74px 0}
+      .nav-links,.header-cta{display:none}
+      .menu-btn{display:grid;place-items:center}
+      .hero{padding-top:120px}
+      .hero-copy h1{font-size:3.5rem}
+      .hero-stats{grid-template-columns:1fr}
+      .hero-visual{min-height:520px;border-radius:28px}
+      .iphone{width:61%;border-width:7px;border-radius:42px}
+      .iphone-real{width:min(365px,72%);max-height:88%}
+      .floating-card{min-width:150px;padding:11px}
+      .float-delivery{right:10px;top:82px}
+      .float-freight{right:10px;top:170px}
+      .float-service{display:none}
+      .solution-grid{
+        display:flex;
+        overflow-x:auto;
+        scroll-snap-type:x mandatory;
+        scrollbar-width:none;
+        padding-bottom:12px;
+      }
+      .solution-grid::-webkit-scrollbar{display:none}
+      .solution-card{flex:0 0 84vw;scroll-snap-align:center}
+      .how-grid{grid-template-columns:1fr}
+      .app-slide{flex-basis:78vw}
+      .professional-content{padding:26px}
+      .perk-grid{grid-template-columns:1fr}
+      .map-box{min-height:380px}
+      .signup-visual{min-height:520px}
+      .type-grid{grid-template-columns:1fr}
+      .form-card{padding:21px}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:440px){
+      .brand img{height:48px}
+      .hero-copy h1{font-size:3rem}
+      .hero-actions .btn{width:100%}
+      .hero-visual{min-height:480px}
+      .iphone{width:66%}
+      .iphone-real{width:74%;max-height:86%}
+      .float-delivery{display:none}
+      .map-actions{left:12px;right:12px;bottom:12px}
+      .map-button{width:100%}
+      .form-actions{flex-direction:column}
+      .footer-grid{grid-template-columns:1fr;text-align:center}
+      .footer-brand img{margin:0 auto}
+      .footer-social{justify-content:center}
+      .copyright{padding-bottom:60px}
+      .whatsapp{right:14px;bottom:14px;width:56px;height:56px}
+    }
+  
+    /* HERO RESPONSIVO COM IMAGENS OFICIAIS */
+    .hero{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding:145px 0 70px;
+      color:#fff;
+      overflow:hidden;
+      background-image:
+        linear-gradient(
+          90deg,
+          rgba(6,25,45,.96) 0%,
+          rgba(6,25,45,.84) 34%,
+          rgba(6,25,45,.35) 62%,
+          rgba(6,25,45,.08) 100%
+        ),
+        url("hero-desktop.webp.PNG");
+      background-size:cover;
+      background-position:center right;
+      background-repeat:no-repeat;
+    }
+
+    .hero-grid{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:minmax(0, .82fr) minmax(420px, 1.18fr);
+      gap:46px;
+      align-items:center;
+    }
+
+    .hero-copy{
+      max-width:650px;
+    }
+
+    .hero-visual,
+    .hero-visual-clean{
+      min-height:650px;
+      background:transparent!important;
+      border:0!important;
+      box-shadow:none!important;
+      overflow:visible!important;
+      pointer-events:none;
+    }
+
+    .hero-visual::before,
+    .hero-visual::after,
+    .hero-placeholder,
+    .hero-bg,
+    .iphone,
+    .iphone-real,
+    .floating-card{
+      display:none!important;
+    }
+
+    @media(max-width:1080px){
+      .hero{
+        background-position:64% center;
+      }
+
+      .hero-grid{
+        grid-template-columns:minmax(0,.9fr) minmax(300px,1.1fr);
+      }
+
+      .hero-visual,
+      .hero-visual-clean{
+        min-height:580px;
+      }
+    }
+
+    @media(max-width:760px){
+      .hero{
+        min-height:auto;
+        padding:118px 0 62px;
+        align-items:flex-start;
+        background-image:
+          linear-gradient(
+            180deg,
+            rgba(6,25,45,.92) 0%,
+            rgba(6,25,45,.76) 20%,
+            rgba(6,25,45,.12) 45%,
+            rgba(6,25,45,.08) 61%,
+            rgba(6,25,45,.88) 86%,
+            rgba(6,25,45,.98) 100%
+          ),
+          url("hero-mobile.webp.PNG");
+        background-size:cover;
+        background-position:center top;
+      }
+
+      .hero-grid{
+        display:block;
+      }
+
+      .hero-copy{
+        max-width:none;
+        text-align:left;
+      }
+
+      .hero-copy h1{
+        max-width:470px;
+        font-size:clamp(2.65rem,12vw,4rem);
+        line-height:.98;
+      }
+
+      .hero-lead{
+        max-width:460px;
+        font-size:.98rem;
+      }
+
+      .hero-actions{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:10px;
+        max-width:430px;
+      }
+
+      .hero-actions .btn{
+        width:100%;
+      }
+
+      .hero-stats{
+        margin-top:500px;
+        grid-template-columns:1fr;
+        max-width:430px;
+      }
+
+      .hero-stat{
+        background:rgba(6,25,45,.58);
+        backdrop-filter:blur(10px);
+      }
+
+      .hero-proof{
+        max-width:430px;
+      }
+
+      .hero-visual,
+      .hero-visual-clean{
+        display:none!important;
+      }
+    }
+
+    @media(max-width:440px){
+      .hero{
+        padding-top:112px;
+        background-position:center top;
+      }
+
+      .hero-copy h1{
+        font-size:2.8rem;
+      }
+
+      .hero-stats{
+        margin-top:455px;
+      }
+    }
+
+  
+    /* CARROSSEL PREMIUM DAS CIDADES */
+    .city-showcase{
+      margin-bottom:28px;
+    }
+
+    .city-carousel{
+      display:flex;
+      gap:16px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      scroll-behavior:smooth;
+      scrollbar-width:none;
+      padding:4px 3px 20px;
+    }
+
+    .city-carousel::-webkit-scrollbar{display:none}
+
+    .city-card{
+      position:relative;
+      flex:0 0 260px;
+      min-height:190px;
+      overflow:hidden;
+      border-radius:22px;
+      scroll-snap-align:start;
+      background:#0b2745;
+      box-shadow:0 18px 46px rgba(7,31,57,.14);
+      border:1px solid rgba(15,76,134,.12);
+      isolation:isolate;
+      transition:transform .28s ease, box-shadow .28s ease;
+    }
+
+    .city-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 26px 60px rgba(7,31,57,.20);
+    }
+
+    .city-card img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .55s ease;
+    }
+
+    .city-card:hover img{transform:scale(1.045)}
+
+    .city-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg,rgba(7,31,57,.02) 30%,rgba(7,31,57,.90) 100%);
+      z-index:1;
+    }
+
+    .city-card-content{
+      position:absolute;
+      inset:auto 18px 16px;
+      z-index:2;
+      color:white;
+    }
+
+    .city-card-content h3{
+      font-size:1.12rem;
+      letter-spacing:-.02em;
+      margin:0;
+    }
+
+    .city-card-content span{
+      display:block;
+      margin-top:4px;
+      color:rgba(255,255,255,.70);
+      font-size:.76rem;
+      font-weight:700;
+    }
+
+    .city-controls{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      margin-top:2px;
+    }
+
+    .city-control{
+      width:44px;
+      height:44px;
+      border:0;
+      border-radius:50%;
+      background:var(--blue-950);
+      color:white;
+      font-size:1.25rem;
+      box-shadow:0 10px 24px rgba(7,31,57,.16);
+    }
+
+    .city-control:hover{transform:translateY(-2px)}
+
+    .region-layout{
+      display:block;
+    }
+
+    .region-copy{
+      max-width:680px;
+      margin-bottom:28px;
+    }
+
+    .map-box{
+      min-height:420px;
+    }
+
+    /* Foto substituta da área de cadastro */
+    .signup-photo-fallback{
+      min-height:560px;
+      background:
+        linear-gradient(180deg,rgba(7,31,57,.05),rgba(7,31,57,.52)),
+        url("hero-mobile.webp.PNG") center 54% / cover no-repeat;
+    }
+
+    @media(max-width:760px){
+      .city-card{
+        flex-basis:78vw;
+        min-height:210px;
+      }
+
+      .city-controls{display:none}
+
+      .signup-photo-fallback{
+        min-height:430px;
+      }
+    }
+
+  
+    /* =====================================================
+       V8 — HERO, MOBILE E CARROSSÉIS CORRIGIDOS
+       ===================================================== */
+
+    html,body{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+    }
+
+    body{margin:0}
+
+    main,section,header,footer{
+      width:100%;
+      max-width:100%;
+    }
+
+    .container{
+      width:min(1180px,calc(100% - 40px));
+      max-width:1180px;
+      margin-inline:auto;
+      min-width:0;
+    }
+
+    /* HERO */
+    .hero{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      min-height:100vh;
+      background:#071f39;
+    }
+
+    .hero-picture{
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      display:block;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+    }
+
+    .hero-picture img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      object-position:center right;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:linear-gradient(
+        90deg,
+        rgba(6,25,45,.96) 0%,
+        rgba(6,25,45,.82) 35%,
+        rgba(6,25,45,.30) 66%,
+        rgba(6,25,45,.06) 100%
+      );
+      pointer-events:none;
+    }
+
+    .hero > .container{
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-visual-clean{
+      min-height:630px;
+      pointer-events:none;
+    }
+
+    /* CARDS SOLUÇÕES — numeração inteira */
+    .solution-media{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .solution-icon{
+      position:absolute;
+      left:15px;
+      bottom:15px;
+      z-index:5;
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      color:var(--lime);
+      background:rgba(7,31,57,.92);
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:0 12px 28px rgba(0,0,0,.25);
+      font-size:.76rem;
+      font-weight:900;
+      line-height:1;
+    }
+
+    /* CARROSSEL DO APP */
+    .carousel-nav{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      width:100%;
+      margin:18px auto 0;
+      position:relative;
+      inset:auto;
+      transform:none;
+    }
+
+    .carousel-btn{
+      position:static;
+      flex:0 0 46px;
+    }
+
+    /* CARROSSEL CIDADES */
+    .city-carousel-shell{
+      width:100%;
+      min-width:0;
+      margin-bottom:30px;
+    }
+
+    .city-carousel{
+      display:flex;
+      gap:16px;
+      width:100%;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      scroll-behavior:smooth;
+      scrollbar-width:none;
+      padding:4px 3px 20px;
+    }
+
+    .city-carousel::-webkit-scrollbar{display:none}
+
+    .city-card{
+      position:relative;
+      flex:0 0 260px;
+      min-height:190px;
+      overflow:hidden;
+      border-radius:22px;
+      scroll-snap-align:start;
+      background:#0b2745;
+      border:1px solid rgba(15,76,134,.12);
+      box-shadow:0 18px 46px rgba(7,31,57,.14);
+    }
+
+    .city-card img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .city-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background:linear-gradient(180deg,transparent 28%,rgba(7,31,57,.92) 100%);
+    }
+
+    .city-card-content{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:16px;
+      z-index:2;
+      color:#fff;
+    }
+
+    .city-card-content h3{
+      margin:0;
+      font-size:1.12rem;
+    }
+
+    .city-card-content span{
+      display:block;
+      margin-top:4px;
+      color:rgba(255,255,255,.7);
+      font-size:.76rem;
+      font-weight:700;
+    }
+
+    .city-controls{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      width:100%;
+      margin:8px auto 0;
+      position:static;
+      transform:none;
+    }
+
+    .city-control{
+      position:static;
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border:0;
+      border-radius:50%;
+      background:#071f39;
+      color:#fff;
+      font-size:1.35rem;
+      cursor:pointer;
+      box-shadow:0 12px 28px rgba(7,31,57,.18);
+    }
+
+    @media(max-width:760px){
+      .container{
+        width:calc(100% - 24px);
+        max-width:none;
+      }
+
+      .hero{
+        min-height:auto;
+        padding:112px 0 56px;
+      }
+
+      .hero-picture img{
+        object-position:center top;
+      }
+
+      .hero::after{
+        background:linear-gradient(
+          180deg,
+          rgba(6,25,45,.92) 0%,
+          rgba(6,25,45,.72) 20%,
+          rgba(6,25,45,.12) 44%,
+          rgba(6,25,45,.08) 62%,
+          rgba(6,25,45,.86) 84%,
+          rgba(6,25,45,.98) 100%
+        );
+      }
+
+      .hero-grid{
+        display:block;
+        width:100%;
+      }
+
+      .hero-copy{
+        width:100%;
+        max-width:none;
+        text-align:left;
+      }
+
+      .hero h1{
+        font-size:clamp(2.65rem,11.8vw,3.7rem);
+        line-height:.98;
+        max-width:100%;
+      }
+
+      .hero-lead{
+        max-width:100%;
+      }
+
+      .hero-actions{
+        display:grid;
+        grid-template-columns:1fr;
+        width:100%;
+      }
+
+      .hero-actions .btn{width:100%}
+
+      .hero-stats{
+        margin-top:470px;
+        grid-template-columns:1fr;
+        width:100%;
+      }
+
+      .hero-stat{
+        width:100%;
+        background:rgba(7,31,57,.75);
+        backdrop-filter:blur(10px);
+      }
+
+      .hero-visual-clean{display:none}
+
+      .app-carousel,
+      .city-carousel{
+        width:100%;
+        max-width:100%;
+      }
+
+      .app-slide{
+        flex:0 0 84vw;
+        max-width:340px;
+      }
+
+      .city-card{
+        flex:0 0 82vw;
+        max-width:340px;
+        min-height:215px;
+      }
+    }
+
+    @media(max-width:420px){
+      .hero-stats{margin-top:430px}
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="ProntoAí">
+        <img src="logo-prontoai.PNG" alt="ProntoAí">
+      </a>
+
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#solucoes">Soluções</a>
+        <a href="#fretes">Fretes</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#profissionais">Profissionais</a>
+        <a href="#cidades">Cidades</a>
+        <a href="#ops">OPS Operation</a>
+      </nav>
+
+      <a class="btn btn-primary header-cta" href="#cadastro">Cadastre-se gratuitamente</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menu">☰</button>
+
+      <nav class="mobile-menu" id="mobileMenu" aria-label="Menu móvel">
+        <a href="#solucoes">Soluções</a>
+        <a href="#fretes">Fretes</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#profissionais">Profissionais</a>
+        <a href="#cidades">Cidades</a>
+        <a href="#ops">OPS Operation</a>
+        <a href="#cadastro">Cadastro gratuito</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <picture class="hero-picture" aria-hidden="true">
+        <source media="(max-width: 760px)" srcset="/hero-mobile.PNG">
+        <img src="/hero-desktop.PNG" alt="" fetchpriority="high">
+      </picture>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow eyebrow-dark"><span class="pulse"></span>Lançamento no Litoral Sul de São Paulo</div>
+
+          <h1>Tudo o que você precisa, <span>perto de você.</span></h1>
+
+          <p class="hero-lead">
+            Serviços, entregas, fretes e OPS Operation em uma única plataforma.
+            Encontre, escolha, acompanhe e resolva com mais praticidade e segurança.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#cadastro">Quero acesso antecipado →</a>
+            <a class="btn btn-ghost" href="#profissionais">Sou profissional</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>300+</strong><span>Profissionais pré-cadastrados</span></div>
+            <div class="hero-stat"><strong>250+</strong><span>Categorias de serviço</span></div>
+            <div class="hero-stat"><strong>9</strong><span>Cidades no lançamento</span></div>
+          </div>
+
+          <div class="hero-proof">
+            <div class="proof-avatars">
+              <span class="proof-avatar">MS</span>
+              <span class="proof-avatar">JR</span>
+              <span class="proof-avatar">AL</span>
+              <span class="proof-avatar">+300</span>
+            </div>
+            Mais de 300 profissionais já estão pré-cadastrados.
+          </div>
+        </div>
+
+        <div class="hero-visual-clean" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="section section-light" id="solucoes">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow eyebrow-light">Nossas soluções</div>
+          <h2>Um ecossistema completo para facilitar sua vida.</h2>
+          <p>Quatro frentes conectadas para pessoas, profissionais, entregadores e empresas.</p>
+        </div>
+
+        <div class="solution-grid">
+          <article class="solution-card">
+            <div class="solution-media">
+              <img src="servicos-card.webp.PNG" alt="Profissional realizando atendimento técnico">
+              <div class="solution-icon">01</div>
+            </div>
+            <div class="solution-content">
+              <h3>Serviços</h3>
+              <p>Encontre profissionais próximos, compare avaliações e acompanhe cada etapa do atendimento.</p>
+              <a href="#cadastro">Profissionais perto de você →</a>
+            </div>
+          </article>
+
+          <article class="solution-card">
+            <div class="solution-media">
+              <img src="entregas-card.webp.PNG" alt="Entregador profissional realizando uma entrega">
+              <div class="solution-icon">02</div>
+            </div>
+            <div class="solution-content">
+              <h3>Entregas</h3>
+              <p>Solicite entregas únicas ou sob demanda para pessoas, pequenos negócios e comércios.</p>
+              <a href="#cadastro">Entregas com praticidade →</a>
+            </div>
+          </article>
+
+          <article class="solution-card" id="fretes">
+            <div class="solution-media">
+              <img src="fretes-card.webp.PNG" alt="Operação profissional de fretes com veículo utilitário">
+              <div class="solution-icon">03</div>
+            </div>
+            <div class="solution-content">
+              <h3>Fretes</h3>
+              <p>Encontre veículos e profissionais para pequenos fretes, mudanças e operações locais.</p>
+              <a href="#cadastro">Encontre o veículo adequado →</a>
+            </div>
+          </article>
+
+          <article class="solution-card" id="ops">
+            <div class="solution-media">
+              <img src="ops-card.webp.PNG" alt="Central OPS Operation acompanhando equipes e chamados">
+              <div class="solution-icon">04</div>
+            </div>
+            <div class="solution-content">
+              <h3>OPS Operation</h3>
+              <p>Gestão de equipes, chamados, prestadores, entregas, agenda e operação em tempo real para empresas.</p>
+              <a href="#cadastro">Conheça o ProntoAí OPS →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="como-funciona">
+      <div class="container">
+        <div class="how-head">
+          <div class="eyebrow eyebrow-dark">Como funciona</div>
+          <h2>Simples, rápido e seguro do início ao fim.</h2>
+        </div>
+
+        <div class="how-grid">
+          <article class="how-card"><span>01</span><h3>Escolha o que precisa</h3><p>Serviço, entrega, frete ou solução para sua empresa.</p></article>
+          <article class="how-card"><span>02</span><h3>Veja opções próximas</h3><p>Compare disponibilidade, perfil, distância e avaliações.</p></article>
+          <article class="how-card"><span>03</span><h3>Confirme com segurança</h3><p>Confira os detalhes antes de confirmar a solicitação.</p></article>
+          <article class="how-card"><span>04</span><h3>Acompanhe e avalie</h3><p>Veja o andamento e avalie a experiência ao final.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container app-layout">
+        <div class="app-copy">
+          <div class="eyebrow eyebrow-light">Dentro do aplicativo</div>
+          <h2>Tudo o que você precisa em poucos toques.</h2>
+          <p>Uma experiência simples e intuitiva para resolver sua rotina com agilidade.</p>
+        </div>
+
+        <div>
+          <div class="app-carousel" id="appCarousel">
+            <article class="app-slide"><div class="phone-frame"><img src="app-tela-inicial.PNG" alt="Tela inicial"></div><h4>Escolha como usar</h4><p>Cliente, profissional ou empresa.</p></article>
+            <article class="app-slide"><div class="phone-frame"><img src="app-home-servicos.PNG" alt="Tela de serviços"></div><h4>Busque o que precisa</h4><p>Serviços, entregas, fretes e OPS.</p></article>
+            <article class="app-slide"><div class="phone-frame"><img src="app-buscando-profissionais.JPG" alt="Busca de profissionais"></div><h4>Veja opções próximas</h4><p>Disponibilidade e distância.</p></article>
+            <article class="app-slide"><div class="phone-frame"><img src="app-profissional-encontrado.JPG" alt="Profissional encontrado"></div><h4>Confira os detalhes</h4><p>Perfil, avaliações e informações.</p></article>
+            <article class="app-slide"><div class="phone-frame"><img src="app-pagamento.JPG" alt="Pagamento"></div><h4>Pague com segurança</h4><p>Resumo e formas de pagamento.</p></article>
+            <article class="app-slide"><div class="phone-frame"><img src="app-acompanhamento.JPG" alt="Acompanhamento"></div><h4>Acompanhe o andamento</h4><p>Rota e previsão de chegada.</p></article>
+            <article class="app-slide"><div class="phone-frame"><img src="app-avaliacao.JPG" alt="Avaliação"></div><h4>Avalie a experiência</h4><p>Fortaleça a confiança na comunidade.</p></article>
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn" id="carouselPrev" type="button" aria-label="Anterior">‹</button>
+            <button class="carousel-btn" id="carouselNext" type="button" aria-label="Próximo">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="profissionais">
+      <div class="container professional-band">
+        <div class="professional-photo">
+          <img src="profissional-founder.webp.PNG" alt="Profissional fundador do ProntoAí">
+        </div>
+
+        <div class="professional-content">
+          <div class="eyebrow eyebrow-light">Profissionais fundadores</div>
+          <h2>Mais oportunidades para quem sabe trabalhar.</h2>
+          <p>Cadastre-se gratuitamente e faça parte do grupo inicial de profissionais do ProntoAí na sua região.</p>
+
+          <div class="perk-grid">
+            <div class="perk"><b>Sem mensalidade</b><span>Comece sem custo fixo e construa sua presença.</span></div>
+            <div class="perk"><b>Clientes próximos</b><span>Receba oportunidades da região em que você atende.</span></div>
+            <div class="perk"><b>Perfil profissional</b><span>Mostre serviços, especialidades, fotos e avaliações.</span></div>
+            <div class="perk"><b>Reputação desde o início</b><span>Construa histórico dentro da plataforma.</span></div>
+          </div>
+
+          <a class="btn btn-primary" href="#cadastro" style="margin-top:24px">Quero ser profissional fundador →</a>
+        </div>
+      </div>
+    </section>
+
+    
+    
+    <section class="section section-light" id="cidades">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow eyebrow-light">Região de lançamento</div>
+          <h2>Começamos pelo Litoral Sul.</h2>
+          <p>Conheça as primeiras cidades do ProntoAí e explore toda a região no mapa.</p>
+        </div>
+
+        <div class="city-carousel-shell">
+          <div class="city-carousel" id="cityCarousel">
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-santos.webp.PNG" alt="Santos">
+              <div class="city-card-content">
+                <h3>Santos</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-sao-vicente.webp.PNG" alt="São Vicente">
+              <div class="city-card-content">
+                <h3>São Vicente</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-praia-grande.webp.WEBP" alt="Praia Grande">
+              <div class="city-card-content">
+                <h3>Praia Grande</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-guaruja.webp.PNG" alt="Guarujá">
+              <div class="city-card-content">
+                <h3>Guarujá</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-cubatao.webp.PNG" alt="Cubatão">
+              <div class="city-card-content">
+                <h3>Cubatão</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-peruibe.webp.PNG" alt="Peruíbe">
+              <div class="city-card-content">
+                <h3>Peruíbe</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-itanhaem.webp.PNG" alt="Itanhaém">
+              <div class="city-card-content">
+                <h3>Itanhaém</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-mongagua.webp.PNG" alt="Mongaguá">
+              <div class="city-card-content">
+                <h3>Mongaguá</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+            <article class="city-card">
+              <img loading="lazy" src="/cidade-itariri.webp.PNG" alt="Itariri">
+              <div class="city-card-content">
+                <h3>Itariri</h3>
+                <span>Litoral Sul de São Paulo</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="city-controls">
+            <button class="city-control" id="cityPrev" type="button" aria-label="Cidade anterior">‹</button>
+            <button class="city-control" id="cityNext" type="button" aria-label="Próxima cidade">›</button>
+          </div>
+        </div>
+
+        <div class="map-box">
+          <div id="regionMap" aria-label="Mapa interativo das cidades de lançamento"></div>
+          <div class="map-actions">
+            <a class="map-button" href="https://www.google.com/maps/search/?api=1&query=Baixada+Santista+SP" target="_blank" rel="noopener">
+              Abrir no Google Maps →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cadastro">
+      <div class="container signup-wrap">
+        <div class="signup-visual">
+          <div class="signup-photo signup-photo-fallback" role="img" aria-label="Pessoa usando o ProntoAí"></div>
+
+          <div class="signup-copy">
+            <div class="eyebrow eyebrow-dark">Lista VIP ProntoAí</div>
+            <h2>Entre antes. Comece na frente.</h2>
+            <p>Faça seu pré-cadastro gratuito para receber novidades e prioridade no lançamento da sua região.</p>
+
+            <div class="signup-benefits">
+              <div><i>✓</i>Acesso antecipado ao lançamento</div>
+              <div><i>✓</i>Cadastro totalmente gratuito</div>
+              <div><i>✓</i>Prioridade para profissionais fundadores</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="progress"><span class="active"></span><span></span><span></span></div>
+
+          <form id="leadForm">
+            <input type="hidden" id="tipoUsuario" value="">
+
+            <div class="form-step active" data-step="1">
+              <h3>Como você quer usar o ProntoAí?</h3>
+              <p>Escolha uma opção para personalizarmos o seu cadastro.</p>
+
+              <div class="type-grid">
+                <button class="type-btn" type="button" data-type="Cliente"><span>Cliente</span><b>Quero contratar</b><small>Serviços, entregas e fretes</small></button>
+                <button class="type-btn" type="button" data-type="Profissional"><span>Profissional</span><b>Quero trabalhar</b><small>Novas oportunidades na região</small></button>
+                <button class="type-btn" type="button" data-type="Empresa"><span>Empresa</span><b>Quero usar o OPS</b><small>Gestão operacional para empresas</small></button>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" id="next1" type="button">Continuar →</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="2">
+              <h3>Onde você está?</h3>
+              <p>Informe sua cidade e, quando necessário, sua atividade.</p>
+
+              <div class="field">
+                <label for="cidade">Cidade</label>
+                <select id="cidade" required>
+                  <option value="">Selecione sua cidade</option>
+                  <option>Santos</option><option>São Vicente</option><option>Praia Grande</option>
+                  <option>Guarujá</option><option>Cubatão</option><option>Peruíbe</option>
+                  <option>Itanhaém</option><option>Mongaguá</option><option>Itariri</option>
+                  <option>Outra cidade</option>
+                </select>
+              </div>
+
+              <div class="field" id="cidadeOutroWrap" hidden>
+                <label for="cidadeOutro">Digite sua cidade</label>
+                <input id="cidadeOutro" type="text" placeholder="Sua cidade">
+              </div>
+
+              <div class="field" id="ocupacaoWrap" hidden>
+                <label for="ocupacao">Ocupação</label>
+                <select id="ocupacao">
+                  <option value="">Selecione sua ocupação</option>
+                  <option>Eletricista</option><option>Encanador</option><option>Diarista</option>
+                  <option>Montador de móveis</option><option>Fretes e mudanças</option><option>Entregas</option>
+                  <option>Pintor</option><option>Ar-condicionado</option><option>Beleza</option><option>Outros</option>
+                </select>
+              </div>
+
+              <div class="field" id="ocupacaoOutroWrap" hidden>
+                <label for="ocupacaoOutro">Digite sua ocupação</label>
+                <input id="ocupacaoOutro" type="text" placeholder="Sua ocupação">
+              </div>
+
+              <div class="field" id="empresaSegmentoWrap" hidden>
+                <label for="empresaSegmento">Segmento da empresa</label>
+                <select id="empresaSegmento">
+                  <option value="">Selecione o segmento</option>
+                  <option>Restaurante</option><option>Condomínio</option><option>Loja</option>
+                  <option>Mercado</option><option>Clínica</option><option>Escritório</option>
+                  <option>Imobiliária</option><option>Serviços técnicos</option><option>Outros</option>
+                </select>
+              </div>
+
+              <div class="field" id="empresaSegmentoOutroWrap" hidden>
+                <label for="empresaSegmentoOutro">Digite o segmento</label>
+                <input id="empresaSegmentoOutro" type="text" placeholder="Segmento da empresa">
+              </div>
+
+              <div class="field" id="empresaColaboradoresWrap" hidden>
+                <label for="empresaColaboradores">Quantidade de colaboradores</label>
+                <select id="empresaColaboradores">
+                  <option value="">Selecione</option>
+                  <option>1 a 5</option><option>6 a 20</option><option>21 a 50</option>
+                  <option>51 a 100</option><option>Mais de 100</option>
+                </select>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-secondary" id="back2" type="button">Voltar</button>
+                <button class="btn btn-primary" id="next2" type="button">Continuar →</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="3">
+              <h3>Falta pouco.</h3>
+              <p>Preencha seus dados para entrar na Lista VIP.</p>
+
+              <div class="field"><label for="nome">Nome completo</label><input id="nome" required autocomplete="name" placeholder="Seu nome completo"></div>
+              <div class="field"><label for="whatsapp">WhatsApp</label><input id="whatsapp" required autocomplete="tel" inputmode="tel" placeholder="(13) 99999-9999"></div>
+              <div class="field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
+
+              <div class="form-actions">
+                <button class="btn btn-secondary" id="back3" type="button">Voltar</button>
+                <button class="btn btn-primary" id="btnLead" type="submit">Entrar na Lista VIP</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="4">
+              <div class="success" aria-live="polite">
+                <div class="success-icon">✓</div>
+                <h3>Cadastro realizado!</h3>
+                <p>Você estará entre os primeiros a conhecer a nova experiência do ProntoAí.</p>
+                <button class="btn btn-primary" id="restart" type="button" style="margin-top:20px">Novo cadastro</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="form-error" id="formError" aria-live="polite"></div>
+          <div class="privacy">Seus dados serão usados somente para comunicação sobre o ProntoAí.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="logo-prontoai.PNG" alt="ProntoAí">
+          <p>Serviços, entregas, fretes e OPS Operation em uma única plataforma.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <nav><a href="#solucoes">Soluções</a><a href="#como-funciona">Como funciona</a><a href="#profissionais">Profissionais</a><a href="#cidades">Cidades</a></nav>
+        </div>
+
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <nav><a href="#inicio">Sobre o ProntoAí</a><a href="#ops">OPS Operation</a><a href="#cadastro">Lista VIP</a></nav>
+        </div>
+
+        <div class="footer-col">
+          <h4>Siga o ProntoAí</h4>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/prontoaioficial" target="_blank" rel="noopener" aria-label="Instagram"><img src="instagram.PNG" alt="Instagram"></a>
+            <a href="https://www.facebook.com/prontoaioficial" target="_blank" rel="noopener" aria-label="Facebook"><img src="facebook.PNG" alt="Facebook"></a>
+            <a href="https://www.tiktok.com/@prontoai.app" target="_blank" rel="noopener" aria-label="TikTok"><img src="tiktok.PNG" alt="TikTok"></a>
+            <a href="https://www.youtube.com/@prontoaiapp" target="_blank" rel="noopener" aria-label="YouTube"><img src="youtube.PNG" alt="YouTube"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright">© 2026 ProntoAí · Conexão que resolve · Todos os direitos reservados</div>
+    </div>
+  </footer>
+
+  <a class="whatsapp" href="https://wa.me/5513978109874?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20o%20ProntoA%C3%AD." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬</a>
+
+  <script>
+    const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwQWzQiZ5GDBq3LMEIeZUsuV_FqSlkNYRPAKGI02wbaEoYwEchatZKqKVm3ySgJIrLm/exec";
+
+    const cities={
+      santos:[-46.333,-23.960],
+      saoVicente:[-46.392,-23.963],
+      praiaGrande:[-46.402,-24.005],
+      guaruja:[-46.256,-23.993],
+      cubatao:[-46.425,-23.895],
+      peruibe:[-46.999,-24.320],
+      itanhaem:[-46.789,-24.183],
+      mongagua:[-46.622,-24.093],
+      itariri:[-46.821,-24.286]
+    };
+
+    function initMenu(){
+      const btn=document.getElementById("menuBtn");
+      const menu=document.getElementById("mobileMenu");
+      if(!btn||!menu)return;
+      btn.addEventListener("click",()=>menu.classList.toggle("open"));
+      menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>menu.classList.remove("open")));
+    }
+
+    function initCarousel(){
+      const carousel=document.getElementById("appCarousel");
+      if(!carousel)return;
+      const move=direction=>{
+        const card=carousel.querySelector(".app-slide");
+        carousel.scrollBy({left:(card.offsetWidth+18)*direction,behavior:"smooth"});
+      };
+      document.getElementById("carouselPrev").addEventListener("click",()=>move(-1));
+      document.getElementById("carouselNext").addEventListener("click",()=>move(1));
+    }
+
+    function initMap(){
+      if(!window.maplibregl||!document.getElementById("regionMap"))return;
+
+      const map=new maplibregl.Map({
+        container:"regionMap",
+        style:"https://tiles.openfreemap.org/styles/liberty",
+        center:[-46.55,-24.05],
+        zoom:9.1,
+        attributionControl:true
+      });
+
+      map.addControl(new maplibregl.NavigationControl({showCompass:false}),"top-right");
+
+      map.on("load",()=>{
+        Object.values(cities).forEach(coords=>{
+          const el=document.createElement("div");
+          el.className="map-city-marker";
+          new maplibregl.Marker({element:el}).setLngLat(coords).addTo(map);
+        });
+      });
+    }
+
+
+    function initCityCarousel(){
+      const carousel=document.getElementById("cityCarousel");
+      const prev=document.getElementById("cityPrev");
+      const next=document.getElementById("cityNext");
+      if(!carousel)return;
+
+      const move=(direction)=>{
+        const card=carousel.querySelector(".city-card");
+        if(!card)return;
+        carousel.scrollBy({
+          left:(card.offsetWidth+16)*direction,
+          behavior:"smooth"
+        });
+      };
+
+      if(prev)prev.addEventListener("click",()=>move(-1));
+      if(next)next.addEventListener("click",()=>move(1));
+    }
+
+
+    function initCityCarousel(){
+      const carousel=document.getElementById("cityCarousel");
+      const prev=document.getElementById("cityPrev");
+      const next=document.getElementById("cityNext");
+      if(!carousel)return;
+
+      const move=(direction)=>{
+        const card=carousel.querySelector(".city-card");
+        const amount=card ? card.getBoundingClientRect().width+16 : carousel.clientWidth*.82;
+        carousel.scrollBy({left:amount*direction,behavior:"smooth"});
+      };
+
+      if(prev)prev.addEventListener("click",()=>move(-1));
+      if(next)next.addEventListener("click",()=>move(1));
+    }
+
+    function initForm(){
+      const form=document.getElementById("leadForm");
+      const typeInput=document.getElementById("tipoUsuario");
+      const steps=[...document.querySelectorAll(".form-step")];
+      const progress=[...document.querySelectorAll(".progress span")];
+      const error=document.getElementById("formError");
+
+      const cidade=document.getElementById("cidade");
+      const cidadeOutro=document.getElementById("cidadeOutro");
+      const cidadeOutroWrap=document.getElementById("cidadeOutroWrap");
+
+      const ocupacao=document.getElementById("ocupacao");
+      const ocupacaoWrap=document.getElementById("ocupacaoWrap");
+      const ocupacaoOutro=document.getElementById("ocupacaoOutro");
+      const ocupacaoOutroWrap=document.getElementById("ocupacaoOutroWrap");
+
+      const segmento=document.getElementById("empresaSegmento");
+      const segmentoWrap=document.getElementById("empresaSegmentoWrap");
+      const segmentoOutro=document.getElementById("empresaSegmentoOutro");
+      const segmentoOutroWrap=document.getElementById("empresaSegmentoOutroWrap");
+
+      const colaboradores=document.getElementById("empresaColaboradores");
+      const colaboradoresWrap=document.getElementById("empresaColaboradoresWrap");
+
+      function show(step){
+        steps.forEach(s=>s.classList.toggle("active",Number(s.dataset.step)===step));
+        progress.forEach((p,i)=>p.classList.toggle("active",i<Math.min(step,3)));
+        error.textContent="";
+      }
+
+      function conditionalFields(){
+        const type=typeInput.value;
+        ocupacaoWrap.hidden=type!=="Profissional";
+        segmentoWrap.hidden=type!=="Empresa";
+        colaboradoresWrap.hidden=type!=="Empresa";
+
+        if(type!=="Profissional"){
+          ocupacao.value="";
+          ocupacaoOutro.value="";
+          ocupacaoOutroWrap.hidden=true;
+        }
+
+        if(type!=="Empresa"){
+          segmento.value="";
+          segmentoOutro.value="";
+          colaboradores.value="";
+          segmentoOutroWrap.hidden=true;
+        }
+      }
+
+      document.querySelectorAll(".type-btn").forEach(btn=>{
+        btn.addEventListener("click",()=>{
+          document.querySelectorAll(".type-btn").forEach(b=>b.classList.remove("active"));
+          btn.classList.add("active");
+          typeInput.value=btn.dataset.type;
+          conditionalFields();
+          error.textContent="";
+        });
+      });
+
+      cidade.addEventListener("change",()=>cidadeOutroWrap.hidden=cidade.value!=="Outra cidade");
+      ocupacao.addEventListener("change",()=>ocupacaoOutroWrap.hidden=ocupacao.value!=="Outros");
+      segmento.addEventListener("change",()=>segmentoOutroWrap.hidden=segmento.value!=="Outros");
+
+      document.getElementById("next1").addEventListener("click",()=>{
+        if(!typeInput.value){
+          error.textContent="Escolha como deseja usar o ProntoAí.";
+          return;
+        }
+        conditionalFields();
+        show(2);
+      });
+
+      document.getElementById("back2").addEventListener("click",()=>show(1));
+      document.getElementById("back3").addEventListener("click",()=>show(2));
+
+      document.getElementById("next2").addEventListener("click",()=>{
+        if(!cidade.value){error.textContent="Selecione sua cidade.";return}
+        if(cidade.value==="Outra cidade"&&!cidadeOutro.value.trim()){error.textContent="Digite sua cidade.";return}
+        if(typeInput.value==="Profissional"&&!ocupacao.value){error.textContent="Selecione sua ocupação.";return}
+        if(ocupacao.value==="Outros"&&!ocupacaoOutro.value.trim()){error.textContent="Digite sua ocupação.";return}
+        if(typeInput.value==="Empresa"&&!segmento.value){error.textContent="Selecione o segmento da empresa.";return}
+        if(segmento.value==="Outros"&&!segmentoOutro.value.trim()){error.textContent="Digite o segmento da empresa.";return}
+        if(typeInput.value==="Empresa"&&!colaboradores.value){error.textContent="Selecione a quantidade de colaboradores.";return}
+        show(3);
+      });
+
+      const whatsapp=document.getElementById("whatsapp");
+
+      whatsapp.addEventListener("input",event=>{
+        let value=event.target.value.replace(/\D/g,"").slice(0,11);
+
+        if(value.length>10){
+          value=value.replace(/^(\d{2})(\d{5})(\d{4})$/,"($1) $2-$3");
+        }else if(value.length>6){
+          value=value.replace(/^(\d{2})(\d{4})(\d{0,4})$/,"($1) $2-$3");
+        }else if(value.length>2){
+          value=value.replace(/^(\d{2})(\d+)/,"($1) $2");
+        }
+
+        event.target.value=value;
+      });
+
+      form.addEventListener("submit",event=>{
+        event.preventDefault();
+
+        const nome=document.getElementById("nome").value.trim();
+        const telefone=whatsapp.value.trim();
+        const email=document.getElementById("email").value.trim();
+
+        if(!nome||!telefone){
+          error.textContent="Preencha nome e WhatsApp.";
+          return;
+        }
+
+        const cidadeFinal=cidade.value==="Outra cidade"?cidadeOutro.value.trim():cidade.value;
+
+        let ocupacaoFinal="";
+        let opiniao="";
+
+        if(typeInput.value==="Profissional"){
+          ocupacaoFinal=ocupacao.value==="Outros"?ocupacaoOutro.value.trim():ocupacao.value;
+        }
+
+        if(typeInput.value==="Empresa"){
+          const segmentoFinal=segmento.value==="Outros"?segmentoOutro.value.trim():segmento.value;
+          ocupacaoFinal=`OPS - Segmento: ${segmentoFinal} | Colaboradores: ${colaboradores.value}`;
+          opiniao=`Interesse no OPS Operation | Segmento: ${segmentoFinal} | Colaboradores: ${colaboradores.value}`;
+        }
+
+        const dados={
+          origem:"Cadastro Lista VIP - Etapa 2",
+          nome,
+          whatsapp:telefone,
+          email,
+          cidade:cidadeFinal,
+          tipo:typeInput.value,
+          ocupacao:ocupacaoFinal,
+          avaliacao:"",
+          indicaria:"",
+          opiniao
+        };
+
+        const submit=document.getElementById("btnLead");
+        submit.disabled=true;
+        submit.textContent="Enviando...";
+
+        fetch(SCRIPT_URL,{
+          method:"POST",
+          mode:"no-cors",
+          body:new URLSearchParams(dados)
+        })
+        .then(()=>show(4))
+        .catch(()=>{error.textContent="Não foi possível enviar agora. Tente novamente."})
+        .finally(()=>{
+          submit.disabled=false;
+          submit.textContent="Entrar na Lista VIP";
+        });
+      });
+
+      document.getElementById("restart").addEventListener("click",()=>{
+        form.reset();
+        typeInput.value="";
+        document.querySelectorAll(".type-btn").forEach(b=>b.classList.remove("active"));
+        cidadeOutroWrap.hidden=true;
+        ocupacaoWrap.hidden=true;
+        ocupacaoOutroWrap.hidden=true;
+        segmentoWrap.hidden=true;
+        segmentoOutroWrap.hidden=true;
+        colaboradoresWrap.hidden=true;
+        show(1);
+      });
+    }
+
+    window.addEventListener("load",()=>{
+      initMenu();
+      initCarousel();
+      initMap();
+      initForm();
+    });
+  </script>
+</body>
+</html>
