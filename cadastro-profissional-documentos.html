@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Documentos do Profissional | ProntoAí</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--b:#06192d;--lime:#a6e100;--ink:#0b1728;--line:#dce6ef;--bg:#f7f9fc;--muted:#64748b}*{box-sizing:border-box}body{margin:0;font-family:Inter,sans-serif;color:var(--ink);background:linear-gradient(145deg,var(--b) 0,#0a355d 34%,var(--bg) 34%)}.wrap{width:min(900px,calc(100% - 28px));margin:auto;padding:28px 0 70px}.top{display:flex;justify-content:space-between;align-items:center;color:#fff;margin-bottom:44px}.top img{height:64px}.top span{color:#dfff78;font-weight:800}.hero{color:#fff;max-width:760px;margin-bottom:28px}.hero h1{font:800 clamp(2.4rem,6vw,4.5rem)/.98 Manrope,sans-serif;margin:16px 0}.hero h1 em{font-style:normal;color:var(--lime)}.hero p{color:#ffffffbf;line-height:1.6}.eyebrow{display:inline-block;padding:8px 12px;border-radius:999px;background:#ffffff12;border:1px solid #ffffff22;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.card{background:#fff;border-radius:30px;padding:34px;box-shadow:0 28px 70px #06192d26}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin-bottom:16px}.field label{display:block;font-size:.78rem;font-weight:800;color:#475569;margin-bottom:7px}.field input{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:14px;background:#fbfdff;font:inherit;outline:none}.doc{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fbfdff}.doc strong{display:block;margin-bottom:6px}.doc small{display:block;color:var(--muted);line-height:1.45;margin-bottom:12px}.doc input[type=file]{width:100%}.preview{margin-top:12px;display:none}.preview img{width:100%;max-height:220px;object-fit:contain;border-radius:12px;border:1px solid var(--line);background:#fff}.note{background:#f4f8fb;border:1px solid #dfeaf3;border-radius:16px;padding:14px 16px;font-size:.85rem;line-height:1.5;color:#475569;margin:18px 0}.consent{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;line-height:1.45;margin-top:14px}.submit{width:100%;border:0;border-radius:999px;background:var(--lime);color:#173000;padding:16px 20px;font-weight:800;font-size:1rem;margin-top:18px;cursor:pointer}.submit:disabled{opacity:.6}.error{margin-top:14px;color:#b42318;font-weight:700}.success{text-align:center;background:#fff;border-radius:30px;padding:48px}.success img{height:66px}.success .check{width:76px;height:76px;border-radius:23px;display:grid;place-items:center;margin:20px auto;background:#eef9d5;color:#5e8200;font-size:2rem;font-weight:900}.back{display:inline-block;margin-top:20px;background:var(--lime);padding:14px 20px;border-radius:999px;font-weight:800;text-decoration:none;color:#173000}@media(max-width:700px){body{background:linear-gradient(180deg,var(--b) 0,#0a355d 20%,var(--bg) 20%)}.grid{grid-template-columns:1fr}.card{padding:22px}.hero h1{font-size:2.7rem}.top img{height:58px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><a href="/"><img src="logo-prontoai.webp" alt="ProntoAí"></a><span>Verificação cadastral</span></header>
+<section class="hero"><span class="eyebrow">Profissionais • Documentação</span><h1>Confirme sua identidade com <em>segurança.</em></h1><p>Use a câmera do celular ou escolha uma imagem da galeria. Os arquivos serão preparados para envio seguro ao cadastro ProntoAí.</p></section>
+<form id="form" class="card">
+<div class="grid">
+<div class="field"><label>Nome completo *</label><input id="nome" autocomplete="name" required></div>
+<div class="field"><label>CPF *</label><input id="cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" required></div>
+</div>
+<div class="grid">
+<div class="doc"><strong>Documento — frente *</strong><small>RG, CIN ou CNH. Tire uma foto nítida, com todos os dados visíveis.</small><input id="docFrente" type="file" accept="image/*" capture="environment" required><div class="preview"><img alt="Prévia da frente do documento"></div></div>
+<div class="doc"><strong>Documento — verso *</strong><small>Fotografe o verso completo do documento.</small><input id="docVerso" type="file" accept="image/*" capture="environment" required><div class="preview"><img alt="Prévia do verso do documento"></div></div>
+<div class="doc"><strong>Selfie *</strong><small>Uma foto atual do rosto, sem óculos escuros e com boa iluminação.</small><input id="selfie" type="file" accept="image/*" capture="user" required><div class="preview"><img alt="Prévia da selfie"></div></div>
+</div>
+<div class="note"><strong>Prévia técnica:</strong> nesta branch as imagens já são redimensionadas e comprimidas no próprio celular antes do envio. O envio final ao Google Drive será ativado quando conectarmos o código do Apps Script atual. Nenhum documento desta página é enviado enquanto o backend não estiver finalizado.</div>
+<label class="consent"><input type="checkbox" id="consentimento">Autorizo o ProntoAí a tratar os documentos e a selfie exclusivamente para verificação cadastral e segurança da plataforma. *</label>
+<div id="erro" class="error"></div>
+<button id="submit" class="submit">Preparar documentos</button>
+</form>
+<div id="ok" class="success" hidden><img src="logo-prontoai.webp" alt="ProntoAí"><div class="check">✓</div><h1>Documentos preparados.</h1><p>A interface e a compressão estão prontas. Amanhã conectaremos o envio ao Apps Script atual.</p><a class="back" href="/">Voltar ao ProntoAí</a></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const MAX_SIDE=1600, QUALITY=.82;
+const prepared={};
+function maskCpf(v){const d=v.replace(/\D/g,'').slice(0,11);return d.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2')}
+$('cpf').oninput=e=>e.target.value=maskCpf(e.target.value);
+function validCpf(value){let cpf=value.replace(/\D/g,'');if(cpf.length!==11||/^(\d)\1{10}$/.test(cpf))return false;let sum=0;for(let i=0;i<9;i++)sum+=Number(cpf[i])*(10-i);let d1=(sum*10)%11;if(d1===10)d1=0;if(d1!==Number(cpf[9]))return false;sum=0;for(let i=0;i<10;i++)sum+=Number(cpf[i])*(11-i);let d2=(sum*10)%11;if(d2===10)d2=0;return d2===Number(cpf[10])}
+async function compressImage(file){if(!file.type.startsWith('image/'))throw new Error('Selecione uma imagem válida.');const bitmap=await createImageBitmap(file);let w=bitmap.width,h=bitmap.height;const scale=Math.min(1,MAX_SIDE/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(bitmap,0,0,w,h);const blob=await new Promise(r=>canvas.toBlob(r,'image/jpeg',QUALITY));if(!blob)throw new Error('Não foi possível preparar a imagem.');const base64=await new Promise((resolve,reject)=>{const fr=new FileReader();fr.onload=()=>resolve(fr.result);fr.onerror=reject;fr.readAsDataURL(blob)});return {dataUrl:base64,size:blob.size,type:'image/jpeg',width:w,height:h}}
+['docFrente','docVerso','selfie'].forEach(id=>{$(id).addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;const box=e.target.closest('.doc');const preview=box.querySelector('.preview');const img=preview.querySelector('img');try{box.style.opacity='.6';prepared[id]=await compressImage(file);img.src=prepared[id].dataUrl;preview.style.display='block'}catch(err){$('erro').textContent=err.message;e.target.value=''}finally{box.style.opacity='1'}})});
+$('form').onsubmit=async e=>{e.preventDefault();$('erro').textContent='';if(!$('nome').value.trim()){ $('erro').textContent='Informe o nome completo.';return }if(!validCpf($('cpf').value)){ $('erro').textContent='Informe um CPF válido.';return }if(!prepared.docFrente||!prepared.docVerso||!prepared.selfie){ $('erro').textContent='Envie a frente, o verso do documento e a selfie.';return }if(!$('consentimento').checked){ $('erro').textContent='É necessário autorizar o tratamento dos documentos para verificação cadastral.';return }$('form').hidden=true;$('ok').hidden=false;scrollTo({top:0,behavior:'smooth'})};
+</script>
+</body></html>
