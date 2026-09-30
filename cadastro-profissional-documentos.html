@@ -14,10 +14,11 @@
 <body>
 <main class="wrap">
 <header class="top"><a href="/"><img src="logo-prontoai.webp" alt="ProntoAí"></a><span>Verificação cadastral</span></header>
-<section class="hero"><span class="eyebrow">Profissionais • Documentação</span><h1>Confirme sua identidade com <em>segurança.</em></h1><p>Use a câmera do celular ou escolha uma imagem da galeria. Os arquivos serão preparados para envio seguro ao cadastro ProntoAí.</p></section>
+<section class="hero"><span class="eyebrow">Profissionais • Documentação</span><h1>Confirme sua identidade com <em>segurança.</em></h1><p>Use a câmera do celular ou escolha uma imagem da galeria. As imagens são comprimidas antes do envio para reduzir o consumo de dados.</p></section>
 <form id="form" class="card">
 <div class="grid">
-<div class="field"><label>Nome completo *</label><input id="nome" autocomplete="name" required></div>
+<div class="field"><label>Nome completo *</label><input id="nome" autocomplete="name" required readonly></div>
+<div class="field"><label>WhatsApp *</label><input id="whatsapp" inputmode="tel" required readonly></div>
 <div class="field"><label>CPF *</label><input id="cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" required></div>
 </div>
 <div class="grid">
@@ -25,22 +26,22 @@
 <div class="doc"><strong>Documento — verso *</strong><small>Fotografe o verso completo do documento.</small><input id="docVerso" type="file" accept="image/*" capture="environment" required><div class="preview"><img alt="Prévia do verso do documento"></div></div>
 <div class="doc"><strong>Selfie *</strong><small>Uma foto atual do rosto, sem óculos escuros e com boa iluminação.</small><input id="selfie" type="file" accept="image/*" capture="user" required><div class="preview"><img alt="Prévia da selfie"></div></div>
 </div>
-<div class="note"><strong>Prévia técnica:</strong> nesta branch as imagens já são redimensionadas e comprimidas no próprio celular antes do envio. O envio final ao Google Drive será ativado quando conectarmos o código do Apps Script atual. Nenhum documento desta página é enviado enquanto o backend não estiver finalizado.</div>
+<div class="note"><strong>Segurança:</strong> os documentos serão enviados para uma pasta privada do ProntoAí no Google Drive e os links serão associados ao cadastro já salvo na planilha pelo WhatsApp informado.</div>
 <label class="consent"><input type="checkbox" id="consentimento">Autorizo o ProntoAí a tratar os documentos e a selfie exclusivamente para verificação cadastral e segurança da plataforma. *</label>
 <div id="erro" class="error"></div>
-<button id="submit" class="submit">Preparar documentos</button>
+<button id="submit" class="submit">Enviar documentos</button>
 </form>
-<div id="ok" class="success" hidden><img src="logo-prontoai.webp" alt="ProntoAí"><div class="check">✓</div><h1>Documentos preparados.</h1><p>A interface e a compressão estão prontas. Amanhã conectaremos o envio ao Apps Script atual.</p><a class="back" href="/">Voltar ao ProntoAí</a></div>
+<div id="ok" class="success" hidden><img src="logo-prontoai.webp" alt="ProntoAí"><div class="check">✓</div><h1>Cadastro concluído!</h1><p>Recebemos seus dados e documentos para verificação.</p><a class="back" href="/">Voltar ao ProntoAí</a></div>
 </main>
 <script>
-const $=id=>document.getElementById(id);
-const MAX_SIDE=1600, QUALITY=.82;
-const prepared={};
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxCRF7NdxVTNplnXwUjR-PUgTAd0xnh7J5Qj5cDFtVc5YDNQ0tgM6bmOpCPGWLubLC3/exec';
+const $=id=>document.getElementById(id);const MAX_SIDE=1600,QUALITY=.82,prepared={};
+const params=new URLSearchParams(location.search);$('nome').value=params.get('nome')||'';$('whatsapp').value=params.get('whatsapp')||'';
 function maskCpf(v){const d=v.replace(/\D/g,'').slice(0,11);return d.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2')}
 $('cpf').oninput=e=>e.target.value=maskCpf(e.target.value);
 function validCpf(value){let cpf=value.replace(/\D/g,'');if(cpf.length!==11||/^(\d)\1{10}$/.test(cpf))return false;let sum=0;for(let i=0;i<9;i++)sum+=Number(cpf[i])*(10-i);let d1=(sum*10)%11;if(d1===10)d1=0;if(d1!==Number(cpf[9]))return false;sum=0;for(let i=0;i<10;i++)sum+=Number(cpf[i])*(11-i);let d2=(sum*10)%11;if(d2===10)d2=0;return d2===Number(cpf[10])}
-async function compressImage(file){if(!file.type.startsWith('image/'))throw new Error('Selecione uma imagem válida.');const bitmap=await createImageBitmap(file);let w=bitmap.width,h=bitmap.height;const scale=Math.min(1,MAX_SIDE/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(bitmap,0,0,w,h);const blob=await new Promise(r=>canvas.toBlob(r,'image/jpeg',QUALITY));if(!blob)throw new Error('Não foi possível preparar a imagem.');const base64=await new Promise((resolve,reject)=>{const fr=new FileReader();fr.onload=()=>resolve(fr.result);fr.onerror=reject;fr.readAsDataURL(blob)});return {dataUrl:base64,size:blob.size,type:'image/jpeg',width:w,height:h}}
-['docFrente','docVerso','selfie'].forEach(id=>{$(id).addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;const box=e.target.closest('.doc');const preview=box.querySelector('.preview');const img=preview.querySelector('img');try{box.style.opacity='.6';prepared[id]=await compressImage(file);img.src=prepared[id].dataUrl;preview.style.display='block'}catch(err){$('erro').textContent=err.message;e.target.value=''}finally{box.style.opacity='1'}})});
-$('form').onsubmit=async e=>{e.preventDefault();$('erro').textContent='';if(!$('nome').value.trim()){ $('erro').textContent='Informe o nome completo.';return }if(!validCpf($('cpf').value)){ $('erro').textContent='Informe um CPF válido.';return }if(!prepared.docFrente||!prepared.docVerso||!prepared.selfie){ $('erro').textContent='Envie a frente, o verso do documento e a selfie.';return }if(!$('consentimento').checked){ $('erro').textContent='É necessário autorizar o tratamento dos documentos para verificação cadastral.';return }$('form').hidden=true;$('ok').hidden=false;scrollTo({top:0,behavior:'smooth'})};
+async function compressImage(file){if(!file.type.startsWith('image/'))throw new Error('Selecione uma imagem válida.');const bitmap=await createImageBitmap(file);let w=bitmap.width,h=bitmap.height;const scale=Math.min(1,MAX_SIDE/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(bitmap,0,0,w,h);const blob=await new Promise(r=>canvas.toBlob(r,'image/jpeg',QUALITY));if(!blob)throw new Error('Não foi possível preparar a imagem.');return await new Promise((resolve,reject)=>{const fr=new FileReader();fr.onload=()=>resolve(fr.result);fr.onerror=reject;fr.readAsDataURL(blob)})}
+['docFrente','docVerso','selfie'].forEach(id=>{$(id).addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;const box=e.target.closest('.doc'),preview=box.querySelector('.preview'),img=preview.querySelector('img');try{box.style.opacity='.6';prepared[id]=await compressImage(file);img.src=prepared[id];preview.style.display='block'}catch(err){$('erro').textContent=err.message;e.target.value=''}finally{box.style.opacity='1'}})});
+$('form').onsubmit=async e=>{e.preventDefault();$('erro').textContent='';if(!$('nome').value.trim()||!$('whatsapp').value.trim()){$('erro').textContent='Cadastro anterior não identificado. Volte e refaça o cadastro.';return}if(!validCpf($('cpf').value)){$('erro').textContent='Informe um CPF válido.';return}if(!prepared.docFrente||!prepared.docVerso||!prepared.selfie){$('erro').textContent='Envie a frente, o verso do documento e a selfie.';return}if(!$('consentimento').checked){$('erro').textContent='É necessário autorizar o tratamento dos documentos.';return}const data=new URLSearchParams({acao:'salvarDocumentosProfissional',nome:$('nome').value.trim(),whatsapp:$('whatsapp').value.trim(),cpf:$('cpf').value.trim(),docFrente:prepared.docFrente,docVerso:prepared.docVerso,selfie:prepared.selfie});$('submit').disabled=true;$('submit').textContent='Enviando documentos...';try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:data});$('form').hidden=true;$('ok').hidden=false;scrollTo({top:0,behavior:'smooth'})}catch{$('erro').textContent='Não foi possível enviar os documentos agora. Tente novamente.';$('submit').disabled=false;$('submit').textContent='Enviar documentos'}};
 </script>
 </body></html>
